@@ -1,0 +1,27 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "name": "react-ui-grid",
+  "tags": [
+    "scope:ui"
+  ],
+  "sourceRoot": "packages/ui/react-ui-grid/src",
+  "projectType": "library",
+  "targets": {
+    "build": {},
+    "compile": {
+      "options": {
+        "entryPoints": [
+          "{projectRoot}/src/index.ts"
+        ],
+        "platforms": [
+          "browser"
+        ]
+      }
+    },
+    "lint": {},
+    "test": {}
+  },
+  "implicitDependencies": [
+    "esbuild"
+  ]
+}
