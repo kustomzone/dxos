@@ -89,14 +89,6 @@ import {
 // TODO(burdon): Realtime long text.
 // TODO(burdon): Search.
 
-// TODO(burdon): Virtualization:
-//  https://github.com/TanStack/virtual/blob/main/examples/react/dynamic/src/main.tsx#L171
-//  https://tanstack.com/virtual/v3/docs/framework/react/examples/variable
-//  https://canvas-grid-demo.vercel.app
-//  https://sheet.brianhung.me
-//  https://github.com/BrianHung
-//  https://daybrush.com/moveable
-
 /**
  * Features:
  * - Move rows/columns.

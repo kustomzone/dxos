@@ -19,13 +19,21 @@ const line = (ctx: CanvasRenderingContext2D, [x1, y1]: Point, [x2, y2]: Point) =
   ctx.stroke();
 };
 
+// Prior art:
+// - https://github.com/myliang/x-spreadsheet?tab=readme-ov-file
+// - Google sheets
+//  - renders EVERYTHING as a canvas.
+//  - only shows resize (and drag) borders -- doesn't change geometry until complete.
+// - https://github.com/TanStack/virtual/blob/main/examples/react/dynamic/src/main.tsx#L171
+// - https://tanstack.com/virtual/v3/docs/framework/react/examples/variable
+// - https://canvas-grid-demo.vercel.app
+// - https://sheet.brianhung.me
+//  - https://github.com/BrianHung
+// - https://daybrush.com/moveable
+
 // Goals
 // - use for sheet and tables.
 // - support multiple locked rows/columns.
-
-// Google sheets
-// - renders EVERYTHING as a canvas.
-// - only shows resize (and drag) borders -- doesn't change geometry until complete.
 
 // Conclusion
 // - canvas over everything (for resize cursors).
@@ -38,12 +46,32 @@ const railWidth = 40;
 const contentWidth = 8_000;
 const contentHeight = 8_000;
 
+// https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas
 const render = (canvas: HTMLCanvasElement, fn: (ctx: CanvasRenderingContext2D) => void) => {
   const t = Date.now();
-  const ctx = canvas.getContext('2d')!;
-  ctx.strokeStyle = '#888';
-  ctx.lineWidth = 0.25;
+
+  const ctx = canvas.getContext('2d', { alpha: false })!;
+
+  // Get the DPR and size of the canvas.
+  const dpr = window.devicePixelRatio;
+  const rect = canvas.getBoundingClientRect();
+
+  // Set the "actual" size of the canvas.
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+
+  // Scale the context to ensure correct drawing operations.
+  ctx.scale(dpr, dpr);
+
+  // Set the "drawn" size of the canvas.
+  canvas.style.width = `${rect.width}px`;
+  canvas.style.height = `${rect.height}px`;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.strokeStyle = '#333';
+  ctx.lineWidth = 1;
   fn(ctx);
+
   return Date.now() - t;
 };
 
@@ -76,6 +104,7 @@ const Grid = () => {
   const rows1CanvasRef = React.useRef<HTMLCanvasElement>(null);
   const rows2CanvasRef = React.useRef<HTMLCanvasElement>(null);
 
+  // TODO(burdon): Data structure? Table/sheet.
   // TODO(burdon): Resize/move (additional single canvas?) Resize handles.
   // TODO(burdon): Selection.
   // TODO(burdon): Scrollbars.
@@ -114,12 +143,11 @@ const Grid = () => {
       d3.range(0, width * 2, columnWidth).forEach((x) => line(ctx, [x, 0], [x, height * 2]));
       d3.range(0, height * 2, rowHeight).forEach((y) => line(ctx, [0, y], [width * 2, y]));
     });
-    // TODO(burdon): Only render content if cell exists.
     mainContentRef.current!.innerHTML = '';
     d3.range(0, width * 2, columnWidth).forEach((x, xi) => {
       d3.range(0, height * 2, rowHeight).forEach((y, yi) => {
-        // TODO(burdon): Map existing cells.
-        if (Math.random() > 0.7) {
+        // TODO(burdon): Map existing cells using d3.join.
+        if (Math.random() < 0.3) {
           const div = mainContentRef.current!.appendChild(createBox({ x, y, width: columnWidth, height: rowHeight }));
           div.innerHTML = `(${xi},${yi})`;
         }
