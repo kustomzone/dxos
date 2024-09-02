@@ -14,8 +14,7 @@ import { SpaceAction } from '@dxos/plugin-space';
 import { TableMain, TableSection, TableSlide, TableArticle } from './components';
 import meta, { TABLE_PLUGIN } from './meta';
 import translations from './translations';
-import { TableType } from './types';
-import { TableAction, type TablePluginProvides, isTable } from './types';
+import { TableAction, TableType, type TablePluginProvides, isTable } from './types';
 
 export const TablePlugin = (): PluginDefinition<TablePluginProvides> => {
   return {
