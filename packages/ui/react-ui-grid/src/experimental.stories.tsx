@@ -112,6 +112,13 @@ const Grid = () => {
   // TODO(burdon): Cell types.
 
   useEffect(() => {
+    handleLayout();
+  }, [width, height]);
+
+  const handleLayout = () => {
+    const { scrollLeft, scrollTop } = fakeScrollRef.current!;
+
+    // Columns.
     render(columnsCanvasRef.current!, (ctx) => {
       d3.range(0, width * 2, columnWidth).forEach((x) => line(ctx, [x, 0], [x, rowHeight]));
     });
@@ -121,6 +128,7 @@ const Grid = () => {
       div.innerHTML = `${xi}`;
     });
 
+    // Rows left.
     render(rows1CanvasRef.current!, (ctx) => {
       d3.range(0, height * 2, rowHeight).forEach((y) => line(ctx, [0, y], [railWidth, y]));
     });
@@ -130,6 +138,7 @@ const Grid = () => {
       div.innerHTML = `${yi}`;
     });
 
+    // Rows right.
     render(rows2CanvasRef.current!, (ctx) => {
       d3.range(0, height * 2, rowHeight).forEach((y) => line(ctx, [0, y], [railWidth, y]));
     });
@@ -139,6 +148,7 @@ const Grid = () => {
       div.innerHTML = 'x';
     });
 
+    // Main content.
     render(mainCanvasRef.current!, (ctx) => {
       d3.range(0, width * 2, columnWidth).forEach((x) => line(ctx, [x, 0], [x, height * 2]));
       d3.range(0, height * 2, rowHeight).forEach((y) => line(ctx, [0, y], [width * 2, y]));
@@ -147,16 +157,16 @@ const Grid = () => {
     d3.range(0, width * 2, columnWidth).forEach((x, xi) => {
       d3.range(0, height * 2, rowHeight).forEach((y, yi) => {
         // TODO(burdon): Map existing cells using d3.join.
-        if (Math.random() < 0.3) {
-          const div = mainContentRef.current!.appendChild(createBox({ x, y, width: columnWidth, height: rowHeight }));
-          div.innerHTML = `(${xi},${yi})`;
-        }
+        const div = mainContentRef.current!.appendChild(createBox({ x, y, width: columnWidth, height: rowHeight }));
+        div.innerHTML = `(${xi},${yi})`;
       });
     });
-  }, [width, height]);
+  };
 
   const handleScroll: UIEventHandler<HTMLDivElement> = () => {
     requestAnimationFrame(() => {
+      handleLayout();
+
       const { scrollLeft, scrollTop } = fakeScrollRef.current!;
       mainScrollRef.current!.scrollLeft = scrollLeft;
       mainScrollRef.current!.scrollTop = scrollTop;
@@ -246,9 +256,11 @@ class TestComponent extends HTMLElement {
   }
 }
 
-customElements.define('test-component', TestComponent);
-
 export const WebComponent = () => {
+  useEffect(() => {
+    customElements.define('test-component', TestComponent);
+  }, []);
+
   return (
     <div>
       {/* @ts-ignore */}
