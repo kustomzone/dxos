@@ -32,7 +32,6 @@ const Demo = () => {
         getCellContent={getData}
         columns={columns}
         rows={100}
-        customRenderers={[{}]}
       />
     </div>
   );
