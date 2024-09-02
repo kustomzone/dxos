@@ -35,8 +35,8 @@ const columnWidth = 160;
 const rowHeight = 32;
 const railWidth = 40;
 
-const contentWidth = 8000;
-const contentHeight = 8000;
+const contentWidth = 8_000;
+const contentHeight = 8_000;
 
 const render = (canvas: HTMLCanvasElement, fn: (ctx: CanvasRenderingContext2D) => void) => {
   const t = Date.now();
@@ -49,7 +49,7 @@ const render = (canvas: HTMLCanvasElement, fn: (ctx: CanvasRenderingContext2D) =
 
 const createBox = ({ x, y, width, height }: Pick<DOMRect, 'x' | 'y' | 'width' | 'height'>) => {
   const div = document.createElement('div');
-  div.className = 'absolute flex items-center justify-center text-gray-500';
+  div.className = 'absolute flex items-center justify-center text-gray-500 text-xs';
   div.style.left = `${x}px`;
   div.style.top = `${y}px`;
   div.style.width = `${width}px`;
@@ -141,45 +141,61 @@ const Grid = () => {
   return (
     <div className={mx('grid grid-cols-[40px_1fr_40px] grid-rows-[32px_1fr_32px]', 'bs-full is-full overflow-hidden')}>
       {/* Top row. */}
-      <div />
-      <div ref={columnsScrollRef} className='relative flex overflow-x-auto scrollbar-none border-x separator-separator'>
-        <div style={{ width: contentWidth, height: rowHeight }}>
-          <div ref={columnsContentRef} className='absolute' />
-          <canvas ref={columnsCanvasRef} width={contentWidth} height={rowHeight} />
-        </div>
-      </div>
-      <div />
-
-      <div ref={rows1ScrollRef} className='relative flex overflow-y-auto scrollbar-none border-y separator-separator'>
-        <div style={{ width: railWidth, height: contentHeight }}>
-          <div ref={rows1ContentRef} className='absolute' />
-          <canvas ref={rows1CanvasRef} width={railWidth} height={contentHeight} />
-        </div>
-      </div>
-      <div ref={mainRef} className='relative flex grow overflow-hidden'>
-        {/* Fake scroll container. */}
-        <div ref={fakeScrollRef} className='absolute inset-0 overflow-auto scrollbar-thin' onScroll={handleScroll}>
-          <div ref={mainScrollRef} style={{ width: contentWidth, height: contentHeight }} />
-        </div>
-        {/* Main content */}
-        <div ref={mainScrollRef} className='relative flex overflow-auto border separator-separator pointer-events-none'>
-          <div style={{ width: contentWidth, height: contentHeight }}>
-            <div ref={mainContentRef} className='absolute' />
-            <canvas ref={mainCanvasRef} className='pointer-events-none' width={contentWidth} height={contentHeight} />
+      <>
+        <div />
+        {/* Columns. */}
+        <div
+          ref={columnsScrollRef}
+          className='relative flex overflow-x-auto scrollbar-none border-x separator-separator'
+        >
+          <div style={{ width: contentWidth, height: rowHeight }}>
+            <div ref={columnsContentRef} className='absolute' />
+            <canvas ref={columnsCanvasRef} width={contentWidth} height={rowHeight} />
           </div>
         </div>
-      </div>
-      <div ref={rows2ScrollRef} className='relative flex overflow-y-auto scrollbar-none border-y separator-separator'>
-        <div style={{ width: railWidth, height: contentHeight }}>
-          <div ref={rows2ContentRef} className='absolute' />
-          <canvas ref={rows2CanvasRef} width={railWidth} height={contentHeight} />
+        <div />
+      </>
+
+      {/* Middle row. */}
+      <>
+        {/* Rows (left). */}
+        <div ref={rows1ScrollRef} className='relative flex overflow-y-auto scrollbar-none border-y separator-separator'>
+          <div style={{ width: railWidth, height: contentHeight }}>
+            <div ref={rows1ContentRef} className='absolute' />
+            <canvas ref={rows1CanvasRef} width={railWidth} height={contentHeight} />
+          </div>
         </div>
-      </div>
+        <div ref={mainRef} className='relative flex grow overflow-hidden'>
+          {/* Fake scroll container. */}
+          <div ref={fakeScrollRef} onScroll={handleScroll} className='absolute inset-0 overflow-auto scrollbar-thin'>
+            <div style={{ width: contentWidth, height: contentHeight }} />
+          </div>
+          {/* Main content. */}
+          <div
+            ref={mainScrollRef}
+            className='relative flex overflow-auto border separator-separator pointer-events-none'
+          >
+            <div style={{ width: contentWidth, height: contentHeight }}>
+              <div ref={mainContentRef} className='absolute' />
+              <canvas ref={mainCanvasRef} width={contentWidth} height={contentHeight} className='pointer-events-none' />
+            </div>
+          </div>
+        </div>
+        {/* Rows (right). */}
+        <div ref={rows2ScrollRef} className='relative flex overflow-y-auto scrollbar-none border-y separator-separator'>
+          <div style={{ width: railWidth, height: contentHeight }}>
+            <div ref={rows2ContentRef} className='absolute' />
+            <canvas ref={rows2CanvasRef} width={railWidth} height={contentHeight} />
+          </div>
+        </div>
+      </>
 
       {/* Bottom row. */}
-      <div />
-      <div className='flex items-center text-green-500 font-mono opacity-50' />
-      <div />
+      <>
+        <div />
+        <div className='flex items-center text-green-500 font-mono opacity-50' />
+        <div />
+      </>
     </div>
   );
 };
