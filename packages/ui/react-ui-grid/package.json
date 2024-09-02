@@ -31,7 +31,6 @@
     "@dxos/react-ui-types": "workspace:*",
     "@dxos/util": "workspace:*",
     "@fluentui/react-tabster": "^9.19.0",
-    "@glideapps/glide-data-grid": "^6.0.3",
     "@radix-ui/react-context": "^1.0.0",
     "@radix-ui/react-primitive": "^1.0.2",
     "@radix-ui/react-slot": "^1.0.1",
@@ -51,10 +50,8 @@
     "@types/react": "~18.2.0",
     "@types/react-dom": "~18.2.0",
     "fast-check": "^3.19.0",
-    "marked": "^12.0.2",
     "react": "~18.2.0",
     "react-dom": "~18.2.0",
-    "react-responsive-carousel": "^3.2.23",
     "vite": "^5.3.4"
   },
   "peerDependencies": {

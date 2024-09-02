@@ -10684,9 +10684,6 @@ importers:
       '@fluentui/react-tabster':
         specifier: ^9.19.0
         version: 9.19.2(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react@18.2.0)
-      '@glideapps/glide-data-grid':
-        specifier: ^6.0.3
-        version: 6.0.3(marked@12.0.2)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0)
       '@radix-ui/react-context':
         specifier: ^1.0.0
         version: 1.1.0(@types/react@18.2.79)(react@18.2.0)
@@ -10736,18 +10733,12 @@ importers:
       fast-check:
         specifier: ^3.19.0
         version: 3.19.0
-      marked:
-        specifier: ^12.0.2
-        version: 12.0.2
       react:
         specifier: ~18.2.0
         version: 18.2.0
       react-dom:
         specifier: ~18.2.0
         version: 18.2.0(react@18.2.0)
-      react-responsive-carousel:
-        specifier: ^3.2.23
-        version: 3.2.23
       vite:
         specifier: ^5.3.4
         version: 5.3.4(@types/node@18.11.9)
@@ -13913,18 +13904,6 @@ packages:
       '@babel/helper-plugin-utils': 7.20.2
       '@babel/plugin-syntax-export-namespace-from': 7.8.3(@babel/core@7.21.3)
 
-  /@babel/plugin-proposal-export-namespace-from@7.18.9(@babel/core@7.24.6):
-    resolution: {integrity: sha512-k1NtHyOMvlDDFeb9G5PhUXuGj8m/wiwojgQVEhJ/fsVsMCpLyOP4h0uGEjYJKrRI+EVPlb5Jk+Gt9P97lOGwtA==}
-    engines: {node: '>=6.9.0'}
-    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-export-namespace-from instead.
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.24.6
-      '@babel/helper-plugin-utils': 7.20.2
-      '@babel/plugin-syntax-export-namespace-from': 7.8.3(@babel/core@7.24.6)
-    dev: false
-
   /@babel/plugin-proposal-json-strings@7.18.6(@babel/core@7.21.3):
     resolution: {integrity: sha512-lr1peyn9kOdbYc0xr0OdHTZ5FMqS6Di+H0Fz2I/JwMzGmzJETNeOFq2pBySw6X/KFL5EWDjlJuMsUGRFb8fQgQ==}
     engines: {node: '>=6.9.0'}
@@ -14159,6 +14138,7 @@ packages:
     dependencies:
       '@babel/core': 7.24.6
       '@babel/helper-plugin-utils': 7.20.2
+    dev: true
 
   /@babel/plugin-syntax-export-namespace-from@7.8.3(@babel/core@7.21.3):
     resolution: {integrity: sha512-MXf5laXo6c1IbEbegDmzGPwGNTsHZmEy6QGznu5Sh2UCWvueywb2ee+CCE4zQiZstxU9BMoQO9i6zUFSY0Kj0Q==}
@@ -14175,6 +14155,7 @@ packages:
     dependencies:
       '@babel/core': 7.24.6
       '@babel/helper-plugin-utils': 7.20.2
+    dev: true
 
   /@babel/plugin-syntax-flow@7.18.6(@babel/core@7.24.6):
     resolution: {integrity: sha512-LUbR+KNTBWCUAqRG9ex5Gnzu2IOkt8jRJbHHXFT9q+L9zm7M/QQbEqXyw1n1pohYvOyWC8CjeyjrSaIwiYjK7A==}
@@ -15227,6 +15208,7 @@ packages:
       '@babel/helper-simple-access': 7.24.7
     transitivePeerDependencies:
       - supports-color
+    dev: true
 
   /@babel/plugin-transform-modules-systemjs@7.19.0(@babel/core@7.21.3):
     resolution: {integrity: sha512-x9aiR0WXAWmOWsqcsnrzGR+ieaTMVyGyffPVA7F8cXAGt/UxefYv6uSHZLkAFChN5M5Iy1+wjE+xJuPt22H39A==}
@@ -19089,26 +19071,6 @@ packages:
       type-fest: 4.10.1
     dev: false
 
-  /@glideapps/glide-data-grid@6.0.3(marked@12.0.2)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0):
-    resolution: {integrity: sha512-YXKggiNOaEemf0jP0jORq2EQKz+zXms+6mGzZc+q0mLMjmgzzoGLOQC1uYcynXSj1R61bd27JcPFsoH+Gj37Vg==}
-    peerDependencies:
-      lodash: ^4.17.19
-      marked: ^4.0.10
-      react: ~18.2.0
-      react-dom: ~18.2.0
-      react-responsive-carousel: ^3.2.7
-    dependencies:
-      '@linaria/react': 4.5.4(react@18.2.0)
-      canvas-hypertxt: 1.0.3
-      marked: 12.0.2
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      react-number-format: 5.4.1(react-dom@18.2.0)(react@18.2.0)
-      react-responsive-carousel: 3.2.23
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
   /@griffel/core@1.15.2:
     resolution: {integrity: sha512-RlsIXoSS3gaYykUgxFpwKAs/DV9cRUKp3CW1kt3iPAtsDTWn/o+8bT1jvBws/tMM2GBu/Uc0EkaIzUPqD7uA+Q==}
     dependencies:
@@ -20384,76 +20346,6 @@ packages:
       '@libp2p/interface': 1.3.1
       multiformats: 13.1.0
       uint8arrays: 5.0.3
-    dev: false
-
-  /@linaria/core@4.5.4:
-    resolution: {integrity: sha512-vMs/5iU0stxjfbBCxobIgY+wSQx4G8ukNwrhjPVD+6bF9QrTwi5rl0mKaCMxaGMjnfsLRiiM3i+hnWLIEYLdSg==}
-    engines: {node: ^12.16.0 || >=13.7.0}
-    dependencies:
-      '@linaria/logger': 4.5.0
-      '@linaria/tags': 4.5.4
-      '@linaria/utils': 4.5.3
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /@linaria/logger@4.5.0:
-    resolution: {integrity: sha512-XdQLk242Cpcsc9a3Cz1ktOE5ysTo2TpxdeFQEPwMm8Z/+F/S6ZxBDdHYJL09srXWz3hkJr3oS2FPuMZNH1HIxw==}
-    engines: {node: ^12.16.0 || >=13.7.0}
-    dependencies:
-      debug: 4.3.5(supports-color@8.1.1)
-      picocolors: 1.0.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /@linaria/react@4.5.4(react@18.2.0):
-    resolution: {integrity: sha512-/dhCVCsfdGPfQCPV0q5yy+DDlFXepvfXrw/os2fC+Xo1v9J/9gyiaBBWHzcumauvNNFj8aN6vRkj89fMujPHew==}
-    engines: {node: ^12.16.0 || >=13.7.0}
-    peerDependencies:
-      react: ~18.2.0
-    dependencies:
-      '@emotion/is-prop-valid': 1.2.0
-      '@linaria/core': 4.5.4
-      '@linaria/tags': 4.5.4
-      '@linaria/utils': 4.5.3
-      minimatch: 9.0.4
-      react: 18.2.0
-      react-html-attributes: 1.4.6
-      ts-invariant: 0.10.3
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /@linaria/tags@4.5.4:
-    resolution: {integrity: sha512-HPxLB6HlJWLi6o8+8lTLegOmDnbMbuzEE+zzunaPZEGSoIIYx8HAv5VbY/sG/zNyxDElk6laiAwEVWN8h5/zxg==}
-    engines: {node: ^12.16.0 || >=13.7.0}
-    dependencies:
-      '@babel/generator': 7.24.8
-      '@linaria/logger': 4.5.0
-      '@linaria/utils': 4.5.3
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /@linaria/utils@4.5.3:
-    resolution: {integrity: sha512-tSpxA3Zn0DKJ2n/YBnYAgiDY+MNvkmzAHrD8R9PKrpGaZ+wz1jQEmE1vGn1cqh8dJyWK0NzPAA8sf1cqa+RmAg==}
-    engines: {node: ^12.16.0 || >=13.7.0}
-    dependencies:
-      '@babel/core': 7.24.6
-      '@babel/generator': 7.24.8
-      '@babel/plugin-proposal-export-namespace-from': 7.18.9(@babel/core@7.24.6)
-      '@babel/plugin-syntax-dynamic-import': 7.8.3(@babel/core@7.24.6)
-      '@babel/plugin-transform-modules-commonjs': 7.24.8(@babel/core@7.24.6)
-      '@babel/template': 7.24.7
-      '@babel/traverse': 7.24.8
-      '@babel/types': 7.24.8
-      '@linaria/logger': 4.5.0
-      babel-merge: 3.0.0(@babel/core@7.24.6)
-      find-up: 5.0.0
-      minimatch: 9.0.4
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /@linkedmd/markdown-it-directive@1.0.1:
@@ -32551,17 +32443,6 @@ packages:
       - supports-color
     dev: true
 
-  /babel-merge@3.0.0(@babel/core@7.24.6):
-    resolution: {integrity: sha512-eBOBtHnzt9xvnjpYNI5HmaPp/b2vMveE5XggzqHnQeHJ8mFIBrBv6WZEVIj5jJ2uwTItkqKo9gWzEEcBxEq0yw==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
-    peerDependencies:
-      '@babel/core': ^7.0.0
-    dependencies:
-      '@babel/core': 7.24.6
-      deepmerge: 2.2.1
-      object.omit: 3.0.0
-    dev: false
-
   /babel-plugin-const-enum@1.2.0(@babel/core@7.24.6):
     resolution: {integrity: sha512-o1m/6iyyFnp9MRsK1dHF3bneqyf3AlM2q3A/YbgQr2pCat6B6XJVDv2TXqzfY2RYUi4mak6WAksSBPlyYGx9dg==}
     peerDependencies:
@@ -33498,10 +33379,6 @@ packages:
     resolution: {integrity: sha512-Phv5thgl67bHYo1TtMY/MurjkHhV4EDaCosezRXgZ8jzA/Ub+wjxAvbGvjoFENStinwi5kCyOYV3mi5tOGykwA==}
     requiresBuild: true
 
-  /canvas-hypertxt@1.0.3:
-    resolution: {integrity: sha512-+VsMpRr64jYgKq2IeFUNel3vCZH/IzS+iXSHxmUV3IUH5dXlC9xHz4AwtPZisDxZ5MWcuK0V+TXgPKFPiZnxzg==}
-    dev: false
-
   /canvas-size@1.2.6:
     resolution: {integrity: sha512-x2iVHOrZ5x9V0Hwx6kBz+Yxf/VCAII+jrD6WLjJbytJLozHq/oDJjEva432Os0eHxWMFR0vYlLJwTr6QxyxQqw==}
     dev: false
@@ -33908,6 +33785,7 @@ packages:
 
   /classnames@2.3.2:
     resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
+    dev: false
 
   /clean-stack@2.2.0:
     resolution: {integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==}
@@ -35555,11 +35433,6 @@ packages:
     resolution: {integrity: sha512-eS8dRJOckyo9maw9Tu5O5RUi/4inFLrnoLkBe3cPfDMx3WZioXtmOew4TXQaxq7Rhl4xjDtR7c6x8nNTxOvbFw==}
     engines: {node: '>=16.0.0'}
     dev: true
-
-  /deepmerge@2.2.1:
-    resolution: {integrity: sha512-R9hc1Xa/NOBi9WRVUWg19rl1UB7Tt4kuPd+thNJgFZoxXsTz7ncaPaeIm+40oSGuP33DfMb4sZt1QIGiJzC4EA==}
-    engines: {node: '>=0.10.0'}
-    dev: false
 
   /deepmerge@4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
@@ -39356,10 +39229,6 @@ packages:
     resolution: {integrity: sha512-ygFIdTqqwG4fFP7kkiYlvayZppeIQX2aPpirsngkv1xM1lP0piDY5QEh68nQnIKvz64hfocxhBaD/uK3sSK1yQ==}
     dev: false
 
-  /html-element-attributes@1.3.1:
-    resolution: {integrity: sha512-UrRKgp5sQmRnDy4TEwAUsu14XBUlzKB8U3hjIYDjcZ3Hbp86Jtftzxfgrv6E/ii/h78tsaZwAnAE8HwnHr0dPA==}
-    dev: false
-
   /html-encoding-sniffer@2.0.1:
     resolution: {integrity: sha512-D5JbOMBIR/TVZkubHT+OyT2705QvogUW4IBn6nHd756OwieSF9aDYFj4dv6HHEVGYbHaLETa3WggZYWWMyy3ZQ==}
     engines: {node: '>=10'}
@@ -40211,13 +40080,6 @@ packages:
     resolution: {integrity: sha512-5BMULNob1vgFX6EjQw5izWDxrecWK9AM72rugNr0TFldMOi0fj6Jk+zeKIt0xGj4cEfQIJth4w3OKWOJ4f+AFw==}
     engines: {node: '>=0.10.0'}
     dev: true
-
-  /is-extendable@1.0.1:
-    resolution: {integrity: sha512-arnXMxT1hhoKo9k1LZdmlNyJdDDfy2v0fXjFlmok4+i8ul/6WlbVge9bhM74OpNPQPMGUToDtz+KXa1PneJxOA==}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      is-plain-object: 2.0.4
-    dev: false
 
   /is-extglob@1.0.0:
     resolution: {integrity: sha512-7Q+VbVafe6x2T+Tu6NcOf6sRklazEPmBoB3IWk3WdGZM2iGUwU/Oe3Wtq5lSEkDTTlpp8yx+5t4pzO/i9Ty1ww==}
@@ -43324,6 +43186,7 @@ packages:
     resolution: {integrity: sha512-qXUm7e/YKFoqFPYPa3Ukg9xlI5cyAtGmyEIzMfW//m6kXwCy2Ps9DYf5ioijFKQ8qyuscrHoY04iJGctu2Kg0Q==}
     engines: {node: '>= 18'}
     hasBin: true
+    dev: false
 
   /marked@4.3.0:
     resolution: {integrity: sha512-PRsaiG84bK+AMvxziE/lCFss8juXjNaWzVbN5tXAm4XjeaS9NAHhop+PjQxz2A9h8Q4M/xGmzP8vqNwy6JeK0A==}
@@ -45444,13 +45307,6 @@ packages:
       es-abstract: 1.22.2
     dev: false
 
-  /object.omit@3.0.0:
-    resolution: {integrity: sha512-EO+BCv6LJfu+gBIF3ggLicFebFLN5zqzz/WWJlMFfkMyGth+oBkhxzDl0wx2W4GkLzuQs/FsSkXZb2IMWQqmBQ==}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      is-extendable: 1.0.1
-    dev: false
-
   /object.values@1.1.7:
     resolution: {integrity: sha512-aU6xnDFYT3x17e/f0IiiwlGPTy2jzMySGfUB4fq6z7CV8l85CWHDk5ErhyhpfDHhrOMwGFhSQkhMGHaIotA6Ng==}
     engines: {node: '>= 0.4'}
@@ -47379,12 +47235,6 @@ packages:
       react: 18.2.0
     dev: false
 
-  /react-easy-swipe@0.0.21:
-    resolution: {integrity: sha512-OeR2jAxdoqUMHIn/nS9fgreI5hSpgGoL5ezdal4+oO7YSSgJR8ga+PkYGJrSrJ9MKlPcQjMQXnketrD7WNmNsg==}
-    engines: {node: '>= 6'}
-    dependencies:
-      prop-types: 15.8.1
-
   /react-element-to-jsx-string@15.0.0(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-UDg4lXB6BzlobN60P8fHWVPX3Kyw8ORrTeBtClmIlGdkOOE+GYQSFvmEU5iLLpwp/6v42DINwNcwOhOLfQ//FQ==}
     peerDependencies:
@@ -47420,12 +47270,6 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       tree-changes: 0.9.3
-
-  /react-html-attributes@1.4.6:
-    resolution: {integrity: sha512-uS3MmThNKFH2EZUQQw4k5pIcU7XIr208UE5dktrj/GOH1CMagqxDl4DCLpt3o2l9x+IB5nVYBeN3Cr4IutBXAg==}
-    dependencies:
-      html-element-attributes: 1.3.1
-    dev: false
 
   /react-i18next@11.18.6(i18next@21.10.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-yHb2F9BiT0lqoQDt8loZ5gWP331GwctHz9tYQ8A2EIEUu+CcEdjBLQWli1USG3RdWQt3W+jqQLg/d4rrQR96LA==}
@@ -47571,16 +47415,6 @@ packages:
       p-defer: 3.0.0
     dev: false
 
-  /react-number-format@5.4.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-NICOjo/70dcAiwVmH6zMWoZrTQDlBrEXV/f7S0t/ewlpzp4z00pasg5G1yBX6NHLafwOF3QZ+VvK/XApwSKxdA==}
-    peerDependencies:
-      react: ~18.2.0
-      react-dom: ~18.2.0
-    dependencies:
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
   /react-qr-rounded@1.0.0(react@18.2.0):
     resolution: {integrity: sha512-6ZW/yUwXXqdFzFu1zVyR2fZy2vyfX2ymFDEQEd2fjZqgC01voQlDfZzC5UmGur95kOfW7wh0gNUPKANeicM9hw==}
     peerDependencies:
@@ -47692,13 +47526,6 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
-
-  /react-responsive-carousel@3.2.23:
-    resolution: {integrity: sha512-pqJLsBaKHWJhw/ItODgbVoziR2z4lpcJg+YwmRlSk4rKH32VE633mAtZZ9kDXjy4wFO+pgUZmDKPsPe1fPmHCg==}
-    dependencies:
-      classnames: 2.3.2
-      prop-types: 15.8.1
-      react-easy-swipe: 0.0.21
 
   /react-router-dom@6.4.2(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-yM1kjoTkpfjgczPrcyWrp+OuQMyB1WleICiiGfstnQYo/S8hPEEnVjr/RdmlH6yKK4Tnj1UGXFSa7uwAtmDoLQ==}
@@ -50907,13 +50734,6 @@ packages:
 
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
-
-  /ts-invariant@0.10.3:
-    resolution: {integrity: sha512-uivwYcQaxAucv1CzRp2n/QdYPo4ILf9VXgH19zEIjFx2EJufV16P0JtJVpYHy89DItG6Kwj2oIUjrcK5au+4tQ==}
-    engines: {node: '>=8'}
-    dependencies:
-      tslib: 2.6.2
-    dev: false
 
   /ts-jest@28.0.8(esbuild@0.19.6)(jest@28.1.3)(typescript@5.5.4):
     resolution: {integrity: sha512-5FaG0lXmRPzApix8oFG8RKjAz4ehtm8yMKOTy5HX3fY6W8kmvOrmcY0hKDElW52FJov+clhUbrKAqofnj4mXTg==}

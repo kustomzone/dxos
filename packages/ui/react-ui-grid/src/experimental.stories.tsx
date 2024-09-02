@@ -235,3 +235,24 @@ export default {
 };
 
 export const Default = {};
+
+class TestComponent extends HTMLElement {
+  constructor() {
+    super();
+    const shadow = this.attachShadow({ mode: 'open' });
+    const wrapper = document.createElement('div');
+    wrapper.textContent = 'Hello, WebComponent!';
+    shadow.appendChild(wrapper);
+  }
+}
+
+customElements.define('test-component', TestComponent);
+
+export const WebComponent = () => {
+  return (
+    <div>
+      {/* @ts-ignore */}
+      <test-component></test-component>
+    </div>
+  );
+};
