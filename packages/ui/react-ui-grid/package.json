@@ -36,7 +36,8 @@
     "@radix-ui/react-slot": "^1.0.1",
     "@radix-ui/react-use-controllable-state": "^1.0.0",
     "d3": "^7.9.0",
-    "effect": "^3.2.7"
+    "effect": "^3.2.7",
+    "use-resize-observer": "^9.0.0"
   },
   "devDependencies": {
     "@dxos/echo-schema": "workspace:*",

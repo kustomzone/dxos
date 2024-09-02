@@ -10652,6 +10652,97 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(@types/node@18.11.9)(@vitest/browser@1.5.0)(@vitest/ui@1.5.0)(happy-dom@13.3.4)(jsdom@24.0.0)
 
+  packages/ui/react-ui-grid:
+    dependencies:
+      '@dxos/async':
+        specifier: workspace:*
+        version: link:../../common/async
+      '@dxos/invariant':
+        specifier: workspace:*
+        version: link:../../common/invariant
+      '@dxos/keys':
+        specifier: workspace:*
+        version: link:../../common/keys
+      '@dxos/log':
+        specifier: workspace:*
+        version: link:../../common/log
+      '@dxos/react-ui':
+        specifier: workspace:*
+        version: link:../react-ui
+      '@dxos/react-ui-searchlist':
+        specifier: workspace:*
+        version: link:../react-ui-searchlist
+      '@dxos/react-ui-theme':
+        specifier: workspace:*
+        version: link:../react-ui-theme
+      '@dxos/react-ui-types':
+        specifier: workspace:*
+        version: link:../react-ui-types
+      '@dxos/util':
+        specifier: workspace:*
+        version: link:../../common/util
+      '@fluentui/react-tabster':
+        specifier: ^9.19.0
+        version: 9.19.2(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-context':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/react@18.2.79)(react@18.2.0)
+      '@radix-ui/react-primitive':
+        specifier: ^1.0.2
+        version: 1.0.3(@types/react-dom@18.2.25)(@types/react@18.2.79)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-slot':
+        specifier: ^1.0.1
+        version: 1.1.0(@types/react@18.2.79)(react@18.2.0)
+      '@radix-ui/react-use-controllable-state':
+        specifier: ^1.0.0
+        version: 1.1.0(@types/react@18.2.79)(react@18.2.0)
+      d3:
+        specifier: ^7.9.0
+        version: 7.9.0
+      effect:
+        specifier: ^3.2.7
+        version: 3.2.7
+      use-resize-observer:
+        specifier: ^9.0.0
+        version: 9.1.0(react-dom@18.2.0)(react@18.2.0)
+    devDependencies:
+      '@dxos/echo-schema':
+        specifier: workspace:*
+        version: link:../../core/echo/echo-schema
+      '@dxos/echo-signals':
+        specifier: workspace:*
+        version: link:../../core/echo/echo-signals
+      '@dxos/random':
+        specifier: workspace:*
+        version: link:../../common/random
+      '@dxos/storybook-utils':
+        specifier: workspace:*
+        version: link:../storybook-utils
+      '@phosphor-icons/react':
+        specifier: ^2.1.5
+        version: 2.1.5(react-dom@18.2.0)(react@18.2.0)
+      '@types/d3':
+        specifier: ^7.4.3
+        version: 7.4.3
+      '@types/react':
+        specifier: ~18.2.0
+        version: 18.2.79
+      '@types/react-dom':
+        specifier: ~18.2.0
+        version: 18.2.25
+      fast-check:
+        specifier: ^3.19.0
+        version: 3.19.0
+      react:
+        specifier: ~18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ~18.2.0
+        version: 18.2.0(react@18.2.0)
+      vite:
+        specifier: ^5.3.4
+        version: 5.3.4(@types/node@18.11.9)
+
   packages/ui/react-ui-mosaic:
     dependencies:
       '@dnd-kit/core':
