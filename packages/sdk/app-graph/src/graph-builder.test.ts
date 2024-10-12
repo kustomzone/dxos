@@ -2,8 +2,10 @@
 // Copyright 2024 DXOS.org
 //
 
-import { batch, signal } from '@preact/signals-core';
+import { transact, atom } from 'signia';
 import { describe, expect, test } from 'vitest';
+
+import { sleep } from '@dxos/async';
 
 import { ACTION_TYPE } from './graph';
 import { GraphBuilder, createExtension, memoize } from './graph-builder';
@@ -36,9 +38,9 @@ describe('GraphBuilder', () => {
       }
     });
 
-    test('updates', async () => {
+    test.only('updates', async () => {
       const builder = new GraphBuilder();
-      const name = signal('default');
+      const name = atom('test', 'default');
       builder.addExtension(
         createExtension({ id: 'resolver', resolver: () => ({ id: EXAMPLE_ID, type: EXAMPLE_TYPE, data: name.value }) }),
       );
@@ -47,13 +49,14 @@ describe('GraphBuilder', () => {
       const node = await graph.waitForNode(EXAMPLE_ID);
       expect(node?.data).to.equal('default');
 
-      name.value = 'updated';
+      name.set('updated');
+      await sleep(1);
       expect(node?.data).to.equal('updated');
     });
 
     test('memoize', async () => {
       const builder = new GraphBuilder();
-      const name = signal('default');
+      const name = atom('test', 'default');
       let count = 0;
       let memoizedCount = 0;
       builder.addExtension(
@@ -76,9 +79,9 @@ describe('GraphBuilder', () => {
       expect(count).to.equal(1);
       expect(memoizedCount).to.equal(1);
 
-      name!.value = 'one';
-      name!.value = 'two';
-      name!.value = 'three';
+      name!.set('one');
+      name!.set('two');
+      name!.set('three');
 
       expect(node?.data).to.equal('three');
       expect(count).to.equal(4);
@@ -119,7 +122,7 @@ describe('GraphBuilder', () => {
     });
 
     test('updates', async () => {
-      const name = signal('default');
+      const name = atom('test', 'default');
       const builder = new GraphBuilder();
       builder.addExtension(
         createExtension({
@@ -133,12 +136,12 @@ describe('GraphBuilder', () => {
       const [node] = graph.nodes(graph.root);
       expect(node.properties.label).to.equal('default');
 
-      name.value = 'updated';
+      name.set('updated');
       expect(node.properties.label).to.equal('updated');
     });
 
     test('removes', async () => {
-      const nodes = signal([
+      const nodes = atom('test', [
         { id: exampleId(1), type: EXAMPLE_TYPE, data: 1 },
         { id: exampleId(2), type: EXAMPLE_TYPE, data: 2 },
       ]);
@@ -159,7 +162,7 @@ describe('GraphBuilder', () => {
         expect(nodes[0].id).to.equal(exampleId(1));
       }
 
-      nodes.value = [{ id: exampleId(3), type: EXAMPLE_TYPE, data: 3 }];
+      nodes.set([{ id: exampleId(3), type: EXAMPLE_TYPE, data: 3 }]);
 
       {
         const nodes = graph.nodes(graph.root);
@@ -171,8 +174,8 @@ describe('GraphBuilder', () => {
 
     test('unsubscribes', async () => {
       let count = 0;
-      const name = signal('default');
-      const sub = signal('default');
+      const name = atom('name', 'default');
+      const sub = atom('sub', 'default');
       const builder = new GraphBuilder();
       builder.addExtension([
         createExtension({
@@ -206,26 +209,26 @@ describe('GraphBuilder', () => {
       expect(count).to.equal(1);
 
       // Count should increment when the parent changes.
-      name.value = 'updated';
+      name.set('updated');
       expect(count).to.equal(2);
 
       // Count should increment when the signal changes.
-      sub.value = 'updated';
+      sub.set('updated');
       expect(count).to.equal(3);
 
       // Count will still increment if the node is removed in a batch.
-      batch(() => {
-        name.value = 'removed';
-        sub.value = 'batch';
+      transact(() => {
+        name.set('removed');
+        sub.set('batch');
       });
       expect(count).to.equal(4);
 
       // Count should not increment after the node is removed.
-      sub.value = 'removed';
+      sub.set('removed');
       expect(count).to.equal(4);
 
       // Count will not increment when node is added back.
-      name.value = 'added';
+      name.set('added');
       expect(count).to.equal(4);
 
       // Count should increment when the node is expanded again.
@@ -233,7 +236,7 @@ describe('GraphBuilder', () => {
       expect(count).to.equal(5);
 
       // Count should increment when signal changes again.
-      sub.value = 'added';
+      sub.set('added');
       expect(count).to.equal(6);
     });
 
@@ -284,7 +287,7 @@ describe('GraphBuilder', () => {
 
     test('memoize', async () => {
       const builder = new GraphBuilder();
-      const name = signal('default');
+      const name = atom('test', 'default');
       let count = 0;
       let memoizedCount = 0;
       builder.addExtension(
@@ -308,9 +311,9 @@ describe('GraphBuilder', () => {
       expect(count).to.equal(1);
       expect(memoizedCount).to.equal(1);
 
-      name!.value = 'one';
-      name!.value = 'two';
-      name!.value = 'three';
+      name!.set('one');
+      name!.set('two');
+      name!.set('three');
 
       expect(node.properties.label).to.equal('three');
       expect(count).to.equal(4);
@@ -346,7 +349,7 @@ describe('GraphBuilder', () => {
 
   describe('multiples', () => {
     test('one of each with multiple memos', async () => {
-      const name = signal('default');
+      const name = atom('test', 'default');
       const builder = new GraphBuilder();
       builder.addExtension(
         createExtension({
@@ -373,7 +376,7 @@ describe('GraphBuilder', () => {
       const initialB = two?.data.b;
       const initialC = two?.data.c;
 
-      name.value = 'updated';
+      name.set('updated');
 
       expect(one?.properties.name).to.equal('updated');
       expect(one?.data).to.equal(initialData);

@@ -20,7 +20,7 @@ import { Context, ContextDisposedError } from '@dxos/context';
 import { raise } from '@dxos/debug';
 import { isEncodedReference, Reference, type SpaceDoc, type SpaceState } from '@dxos/echo-protocol';
 import { TYPE_PROPERTIES, type AnyObjectData } from '@dxos/echo-schema';
-import { compositeRuntime } from '@dxos/echo-signals/runtime';
+import { compositeRuntime } from '@dxos/echo-signal-runtime';
 import { invariant } from '@dxos/invariant';
 import { DXN, LOCAL_SPACE_TAG, type PublicKey, type SpaceId } from '@dxos/keys';
 import { log } from '@dxos/log';

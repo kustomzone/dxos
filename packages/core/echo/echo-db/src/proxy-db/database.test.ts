@@ -15,8 +15,8 @@ import {
   getType,
   type ReactiveObject,
 } from '@dxos/echo-schema';
-import { updateCounter } from '@dxos/echo-schema/testing';
-import { registerSignalsRuntime } from '@dxos/echo-signals';
+import { signiaUpdateCounter } from '@dxos/echo-schema/testing';
+import { registerSignalsRuntime } from '@dxos/echo-signia';
 import { PublicKey } from '@dxos/keys';
 import { openAndClose } from '@dxos/test-utils';
 import { range } from '@dxos/util';
@@ -125,7 +125,7 @@ describe('Database', () => {
       const query = db.query({ id });
       const loaded = new Trigger();
       query.subscribe();
-      using updates = updateCounter(() => {
+      using updates = signiaUpdateCounter(() => {
         if (query.objects.length > 0) {
           loaded.wake();
         }

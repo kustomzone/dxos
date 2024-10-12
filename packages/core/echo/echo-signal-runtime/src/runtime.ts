@@ -18,9 +18,9 @@ export interface GenericSignal {
 
 export interface SignalRuntime {
   /**
-   * @param debugInfo - Optional string name or owner object of the signal. Used for debugging purposes.
+   * @param id - Unique identifier of the signal.
    */
-  createSignal(debugInfo?: unknown): GenericSignal;
+  createSignal(id: string): GenericSignal;
 
   /**
    * All writes inside the callback will be batched and notified when the callback is finished.
@@ -60,8 +60,7 @@ export const registerSignalsRuntime = (runtime: SignalRuntime) => {
 class CompositeSignal implements GenericSignal {
   constructor(
     private readonly _signals: GenericSignal[],
-
-    public readonly debugInfo: unknown = undefined,
+    public readonly id: string,
   ) {}
 
   notifyRead(): void {
@@ -92,12 +91,12 @@ class CompositeRuntime implements SignalRuntime {
     return callBatchRecursively(0);
   }
 
-  createSignal(debugInfo?: unknown): GenericSignal {
+  createSignal(id: string): GenericSignal {
     runtimeUsed = true;
 
     return new CompositeSignal(
-      runtimeList.map((runtime) => runtime.createSignal(debugInfo)),
-      debugInfo,
+      runtimeList.map((runtime) => runtime.createSignal(id)),
+      id,
     );
   }
 

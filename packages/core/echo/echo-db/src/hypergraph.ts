@@ -7,7 +7,7 @@ import { Context } from '@dxos/context';
 import { StackTrace } from '@dxos/debug';
 import { type Reference } from '@dxos/echo-protocol';
 import { type EchoReactiveObject } from '@dxos/echo-schema';
-import { compositeRuntime } from '@dxos/echo-signals/runtime';
+import { compositeRuntime } from '@dxos/echo-signal-runtime';
 import { invariant } from '@dxos/invariant';
 import { PublicKey, type SpaceId } from '@dxos/keys';
 import { log } from '@dxos/log';

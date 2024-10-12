@@ -2,7 +2,7 @@
 // Copyright 2023 DXOS.org
 //
 
-import { batch, effect, untracked } from '@preact/signals-core';
+import { transact, react, unsafe__withoutCapture } from 'signia';
 
 import { asyncTimeout, Trigger } from '@dxos/async';
 import { type ReactiveObject, create } from '@dxos/echo-schema';
@@ -34,7 +34,7 @@ export type NodesOptions<T = any, U extends Record<string, any> = Record<string,
 };
 
 // TODO(wittjosiah): Consider having default be undefined. This is current default for backwards compatibility.
-const DEFAULT_FILTER = (node: Node) => untracked(() => !isActionLike(node));
+const DEFAULT_FILTER = (node: Node) => unsafe__withoutCapture(() => !isActionLike(node));
 
 export type GraphTraversalOptions = {
   /**
@@ -252,7 +252,7 @@ export class Graph {
     { visitor, node = this.root, relation = 'outbound', expansion }: GraphTraversalOptions,
     currentPath: string[] = [],
   ) {
-    return effect(() => {
+    return react('subscribeTraverse', () => {
       const path = [...currentPath, node.id];
       const result = visitor(node, path);
       if (result === false) {
@@ -302,7 +302,7 @@ export class Graph {
   _addNodes<TData = null, TProperties extends Record<string, any> = Record<string, any>>(
     nodes: NodeArg<TData, TProperties>[],
   ): Node<TData, TProperties>[] {
-    return batch(() => nodes.map((node) => this._addNode(node)));
+    return transact(() => nodes.map((node) => this._addNode(node)));
   }
 
   private _addNode<TData, TProperties extends Record<string, any> = Record<string, any>>({
@@ -310,7 +310,7 @@ export class Graph {
     edges,
     ..._node
   }: NodeArg<TData, TProperties>): Node<TData, TProperties> {
-    return untracked(() => {
+    return unsafe__withoutCapture(() => {
       const existingNode = this._nodes[_node.id];
       const node = existingNode ?? this._constructNode({ data: null, properties: {}, ..._node });
       if (existingNode) {
@@ -366,11 +366,11 @@ export class Graph {
    * @internal
    */
   _removeNodes(ids: string[], edges = false) {
-    batch(() => ids.forEach((id) => this._removeNode(id, edges)));
+    transact(() => ids.forEach((id) => this._removeNode(id, edges)));
   }
 
   private _removeNode(id: string, edges = false) {
-    untracked(() => {
+    unsafe__withoutCapture(() => {
       const node = this.findNode(id);
       if (!node) {
         return;
@@ -406,11 +406,11 @@ export class Graph {
    * @internal
    */
   _addEdges(edges: { source: string; target: string }[]) {
-    batch(() => edges.forEach((edge) => this._addEdge(edge)));
+    transact(() => edges.forEach((edge) => this._addEdge(edge)));
   }
 
   private _addEdge({ source, target }: { source: string; target: string }) {
-    untracked(() => {
+    unsafe__withoutCapture(() => {
       if (!this._edges[source]) {
         this._edges[source] = create({ inbound: [], outbound: [] });
       }
@@ -435,12 +435,12 @@ export class Graph {
    * @internal
    */
   _removeEdges(edges: { source: string; target: string }[], removeOrphans = false) {
-    batch(() => edges.forEach((edge) => this._removeEdge(edge, removeOrphans)));
+    transact(() => edges.forEach((edge) => this._removeEdge(edge, removeOrphans)));
   }
 
   private _removeEdge({ source, target }: { source: string; target: string }, removeOrphans = false) {
-    untracked(() => {
-      batch(() => {
+    unsafe__withoutCapture(() => {
+      transact(() => {
         const outboundIndex = this._edges[source]?.outbound.findIndex((id) => id === target);
         if (outboundIndex !== undefined && outboundIndex !== -1) {
           this._edges[source].outbound.splice(outboundIndex, 1);
@@ -482,8 +482,8 @@ export class Graph {
    * @ignore
    */
   _sortEdges(nodeId: string, relation: Relation, edges: string[]) {
-    untracked(() => {
-      batch(() => {
+    unsafe__withoutCapture(() => {
+      transact(() => {
         const current = this._edges[nodeId];
         if (current) {
           const unsorted = current[relation].filter((id) => !edges.includes(id)) ?? [];

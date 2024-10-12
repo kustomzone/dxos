@@ -5,11 +5,11 @@
 import { inspect } from 'node:util';
 import { describe, expect, test } from 'vitest';
 
-import { registerSignalsRuntime } from '@dxos/echo-signals';
+import { registerSignalsRuntime } from '@dxos/echo-signia';
 import { isNode } from '@dxos/util';
 
 import { create } from './object';
-import { TestClass, type TestSchema, TestSchemaWithClass, updateCounter } from '../testing';
+import { TestClass, type TestSchema, TestSchemaWithClass, signiaUpdateCounter } from '../testing';
 import { data, type ReactiveObject } from '../types';
 
 registerSignalsRuntime();
@@ -86,7 +86,7 @@ for (const schema of [undefined, TestSchemaWithClass]) {
       test('not in nested class instances', () => {
         const obj = createObject({ classInstance: new TestClass() });
 
-        using updates = updateCounter(() => {
+        using updates = signiaUpdateCounter(() => {
           obj.classInstance!.field;
         });
         expect(updates.count, 'update count').to.eq(0);
@@ -124,7 +124,7 @@ describe('getters', () => {
       },
     });
 
-    using updates = updateCounter(() => {
+    using updates = signiaUpdateCounter(() => {
       obj.getter;
     });
 

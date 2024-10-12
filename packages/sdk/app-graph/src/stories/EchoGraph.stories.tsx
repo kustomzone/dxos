@@ -8,7 +8,7 @@ import { Pause, Play, Plus, Timer } from '@phosphor-icons/react';
 import React, { useEffect, useState } from 'react';
 
 import { type EchoReactiveObject, create } from '@dxos/echo-schema';
-import { registerSignalsRuntime } from '@dxos/echo-signals';
+import { registerSignalsRuntime } from '@dxos/echo-signia';
 import { faker } from '@dxos/random';
 import { type Client, useClient } from '@dxos/react-client';
 import {

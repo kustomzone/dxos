@@ -2,11 +2,11 @@
 // Copyright 2023 DXOS.org
 //
 
-import { effect } from '@preact/signals-core';
+import { react } from 'signia';
 import { describe, expect, test } from 'vitest';
 
-import { updateCounter } from '@dxos/echo-schema/testing';
-import { registerSignalsRuntime } from '@dxos/echo-signals';
+import { signiaUpdateCounter } from '@dxos/echo-schema/testing';
+import { registerSignalsRuntime } from '@dxos/echo-signia';
 
 import { Graph, ROOT_ID, ROOT_TYPE, getGraph } from './graph';
 import { type Node, type NodeFilter } from './node';
@@ -261,7 +261,7 @@ describe('Graph', () => {
   test('updates are constrained on data', () => {
     const graph = new Graph();
     const [node1] = graph._addNodes([{ id: 'test1', type: 'test', data: 1 }]);
-    using updates = updateCounter(() => {
+    using updates = signiaUpdateCounter(() => {
       node1.data;
     });
     graph._addNodes([{ id: 'test2', type: 'test', data: 2 }]);
@@ -276,7 +276,7 @@ describe('Graph', () => {
   test('updates are constrained on properties', () => {
     const graph = new Graph();
     const [node1] = graph._addNodes([{ id: 'test1', type: 'test', properties: { value: 1 } }]);
-    using updates = updateCounter(() => {
+    using updates = signiaUpdateCounter(() => {
       node1.properties.value;
     });
     graph._addNodes([{ id: 'test2', type: 'test', properties: { value: 2 } }]);
@@ -289,7 +289,7 @@ describe('Graph', () => {
   test('updates are constrained on connected nodes', () => {
     const graph = new Graph();
     const [node1] = graph._addNodes([{ id: 'test1', type: 'test', properties: { value: 1 } }]);
-    using updates = updateCounter(() => {
+    using updates = signiaUpdateCounter(() => {
       graph.nodes(node1);
     });
     expect(updates.count, 'update count').to.eq(0);
@@ -479,7 +479,7 @@ describe('Graph', () => {
         },
       ]);
 
-      const dispose = effect(() => {
+      const dispose = react('traverse', () => {
         graph.traverse({
           visitor: (node, path) => {
             if (!longestPaths.has(node.id) || longestPaths.get(node.id)!.length < path.length) {

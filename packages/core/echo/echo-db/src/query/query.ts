@@ -4,7 +4,7 @@
 
 import { Event } from '@dxos/async';
 import { StackTrace } from '@dxos/debug';
-import { compositeRuntime } from '@dxos/echo-signals/runtime';
+import { compositeRuntime } from '@dxos/echo-signal-runtime';
 import { invariant } from '@dxos/invariant';
 import { type PublicKey, type SpaceId } from '@dxos/keys';
 import { log } from '@dxos/log';
@@ -111,7 +111,7 @@ export type QueryRunOptions = {
  */
 export class Query<T extends {} = any> {
   private readonly _filter: Filter;
-  private readonly _signal = compositeRuntime.createSignal();
+  private readonly _signal = compositeRuntime.createSignal('query');
   private readonly _event = new Event<Query<T>>();
   private readonly _diagnostic: QueryDiagnostic;
 

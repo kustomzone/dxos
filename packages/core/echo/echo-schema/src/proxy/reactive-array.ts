@@ -2,7 +2,7 @@
 // Copyright 2024 DXOS.org
 //
 
-import { compositeRuntime } from '@dxos/echo-signals/runtime';
+import { compositeRuntime } from '@dxos/echo-signal-runtime';
 
 /**
  * Extends the native array to make sure that arrays methods are correctly reactive.

@@ -2,7 +2,7 @@
 // Copyright 2024 DXOS.org
 //
 
-import { compositeRuntime } from '@dxos/echo-signals/runtime';
+import { compositeRuntime } from '@dxos/echo-signal-runtime';
 
 import { type EchoReactiveHandler } from './echo-handler';
 import { type ObjectInternals, symbolHandler, symbolInternals, symbolNamespace, symbolPath } from './echo-proxy-target';

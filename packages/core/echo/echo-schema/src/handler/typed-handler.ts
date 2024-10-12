@@ -5,7 +5,7 @@
 import { inspect, type InspectOptionsStylized } from 'node:util';
 
 import { type Reference } from '@dxos/echo-protocol';
-import { compositeRuntime, type GenericSignal } from '@dxos/echo-signals/runtime';
+import { compositeRuntime, type GenericSignal } from '@dxos/echo-signal-runtime';
 import { AST, S } from '@dxos/effect';
 import { invariant } from '@dxos/invariant';
 
@@ -52,8 +52,8 @@ export class TypedReactiveHandler implements ReactiveHandler<ProxyTarget> {
     invariant(symbolSchema in target, 'Schema is not defined for the target');
 
     if (!(symbolSignal in target)) {
-      defineHiddenProperty(target, symbolSignal, compositeRuntime.createSignal());
-      defineHiddenProperty(target, symbolPropertySignal, compositeRuntime.createSignal());
+      defineHiddenProperty(target, symbolSignal, compositeRuntime.createSignal('symbol'));
+      defineHiddenProperty(target, symbolPropertySignal, compositeRuntime.createSignal('symbolProperty'));
     }
 
     for (const key of Object.getOwnPropertyNames(target)) {

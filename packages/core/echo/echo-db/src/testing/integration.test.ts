@@ -12,8 +12,8 @@ import {
   TestReplicationNetwork,
 } from '@dxos/echo-pipeline/testing';
 import { create, Expando } from '@dxos/echo-schema';
-import { updateCounter } from '@dxos/echo-schema/testing';
-import { registerSignalsRuntime } from '@dxos/echo-signals';
+import { signiaUpdateCounter } from '@dxos/echo-schema/testing';
+import { registerSignalsRuntime } from '@dxos/echo-signia';
 import { PublicKey } from '@dxos/keys';
 import { TestBuilder as TeleportTestBuilder, TestPeer as TeleportTestPeer } from '@dxos/teleport/testing';
 import { deferAsync } from '@dxos/util';
@@ -146,7 +146,7 @@ describe('Integration tests', () => {
       await using db = await peer.openDatabase(spaceKey, rootUrl);
       const outer = (await db.loadObjectById(outerId)) as any;
       const loaded = new Trigger();
-      using updates = updateCounter(() => {
+      using updates = signiaUpdateCounter(() => {
         if (outer.inner) {
           loaded.wake();
         }

@@ -5,7 +5,7 @@
 import { type Brand } from 'effect';
 
 import { type EchoReactiveObject } from '@dxos/echo-schema';
-import type { GenericSignal } from '@dxos/echo-signals/runtime';
+import type { GenericSignal } from '@dxos/echo-signal-runtime';
 import type { ComplexMap } from '@dxos/util';
 
 import { type EchoArray } from './echo-array';

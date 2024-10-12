@@ -4,7 +4,7 @@
 
 import { signal, batch, untracked } from '@preact/signals-core';
 
-import { registerSignalsRuntime as registerRuntimeForEcho } from './runtime';
+import { registerSignalsRuntime as registerRuntimeForEcho } from '@dxos/echo-signal-runtime';
 
 let registered = false;
 
@@ -15,9 +15,9 @@ export const registerSignalsRuntime = () => {
   registered = true;
 
   registerRuntimeForEcho({
-    createSignal: (debugInfo) => {
+    createSignal: (id) => {
       const thisSignal = signal({});
-      (thisSignal as any).__debugInfo = debugInfo;
+      (thisSignal as any).__id = id;
 
       return {
         notifyRead: () => {

@@ -2,13 +2,13 @@
 // Copyright 2023 DXOS.org
 //
 
-import { type Signal, effect, signal } from '@preact/signals-core';
+import { type Atom, react, atom } from 'signia';
 
 import { type UnsubscribeCallback } from '@dxos/async';
 import { create } from '@dxos/echo-schema';
 import { invariant } from '@dxos/invariant';
 import { log } from '@dxos/log';
-import { isNode, type MaybePromise, nonNullable } from '@dxos/util';
+import { type MaybePromise, nonNullable } from '@dxos/util';
 
 import { ACTION_GROUP_TYPE, ACTION_TYPE, Graph } from './graph';
 import { type Relation, type NodeArg, type Node, type ActionData, actionGroupSymbol } from './node';
@@ -155,10 +155,10 @@ export const toSignal = <T>(
   key?: string,
 ) => {
   const thisSignal = memoize(() => {
-    return signal(get());
+    return atom('toSignal', get());
   }, key);
   const unsubscribe = memoize(() => {
-    return subscribe(() => (thisSignal.value = get()));
+    return subscribe(() => thisSignal.set(get()));
   }, key);
   cleanup(() => {
     unsubscribe();
@@ -189,7 +189,7 @@ export class GraphBuilder {
   private readonly _extensions = create<Record<string, BuilderExtension>>({});
   private readonly _resolverSubscriptions = new Map<string, UnsubscribeCallback>();
   private readonly _connectorSubscriptions = new Map<string, UnsubscribeCallback>();
-  private readonly _nodeChanged: Record<string, Signal<{}>> = {};
+  private readonly _nodeChanged: Record<string, Atom<{}>> = {};
   private _graph: Graph;
 
   constructor() {
@@ -246,12 +246,8 @@ export class GraphBuilder {
       return;
     }
 
-    // TODO(wittjosiah): This is a workaround for esm not working in the test runner.
-    //   Switching to vitest is blocked by having node esm versions of echo-schema & echo-signals.
-    if (!isNode()) {
-      const { yieldOrContinue } = await import('main-thread-scheduling');
-      await yieldOrContinue('idle');
-    }
+    const { yieldOrContinue } = await import('main-thread-scheduling');
+    await yieldOrContinue('idle');
     const shouldContinue = await visitor(node, [...path, node.id]);
     if (shouldContinue === false) {
       return;
@@ -281,10 +277,10 @@ export class GraphBuilder {
   }
 
   private async _onInitialNode(nodeId: string) {
-    this._nodeChanged[nodeId] = this._nodeChanged[nodeId] ?? signal({});
+    this._nodeChanged[nodeId] = this._nodeChanged[nodeId] ?? atom(nodeId, {});
     this._resolverSubscriptions.set(
       nodeId,
-      effect(() => {
+      react(`${nodeId}-onInitialNode`, () => {
         for (const { id, resolver } of Object.values(this._extensions)) {
           if (!resolver) {
             continue;
@@ -304,10 +300,12 @@ export class GraphBuilder {
           }
 
           if (node) {
-            this.graph._addNodes([node]);
-            if (this._nodeChanged[node.id]) {
-              this._nodeChanged[node.id].value = {};
-            }
+            queueMicrotask(() => {
+              this.graph._addNodes([node]);
+              if (this._nodeChanged[node.id]) {
+                this._nodeChanged[node.id].set({});
+              }
+            });
             break;
           }
         }
@@ -316,12 +314,12 @@ export class GraphBuilder {
   }
 
   private async _onInitialNodes(node: Node, nodesRelation: Relation, nodesType?: string) {
-    this._nodeChanged[node.id] = this._nodeChanged[node.id] ?? signal({});
+    this._nodeChanged[node.id] = this._nodeChanged[node.id] ?? atom(node.id, {});
     let first = true;
     let previous: string[] = [];
     this._connectorSubscriptions.set(
       node.id,
-      effect(() => {
+      react(`${node.id}-onInitialNodes`, () => {
         // TODO(wittjosiah): This is a workaround for a race between the node removal and the effect re-running.
         //   To cause this case to happen, remove a collection and then undo the removal.
         if (!first && !this._connectorSubscriptions.has(node.id)) {
@@ -363,26 +361,28 @@ export class GraphBuilder {
         const removed = previous.filter((id) => !ids.includes(id));
         previous = ids;
 
-        // Remove edges and only remove nodes that are orphaned.
-        this.graph._removeEdges(
-          removed.map((target) => ({ source: node.id, target })),
-          true,
-        );
-        this.graph._addNodes(nodes);
-        this.graph._addEdges(
-          nodes.map(({ id }) =>
-            nodesRelation === 'outbound' ? { source: node.id, target: id } : { source: id, target: node.id },
-          ),
-        );
-        this.graph._sortEdges(
-          node.id,
-          nodesRelation,
-          nodes.map(({ id }) => id),
-        );
-        nodes.forEach((n) => {
-          if (this._nodeChanged[n.id]) {
-            this._nodeChanged[n.id].value = {};
-          }
+        queueMicrotask(() => {
+          // Remove edges and only remove nodes that are orphaned.
+          this.graph._removeEdges(
+            removed.map((target) => ({ source: node.id, target })),
+            true,
+          );
+          this.graph._addNodes(nodes);
+          this.graph._addEdges(
+            nodes.map(({ id }) =>
+              nodesRelation === 'outbound' ? { source: node.id, target: id } : { source: id, target: node.id },
+            ),
+          );
+          this.graph._sortEdges(
+            node.id,
+            nodesRelation,
+            nodes.map(({ id }) => id),
+          );
+          nodes.forEach((n) => {
+            if (this._nodeChanged[n.id]) {
+              this._nodeChanged[n.id].set({});
+            }
+          });
         });
       }),
     );

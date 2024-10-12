@@ -259,7 +259,17 @@
         },
         {
           "type": "json",
+          "path": "packages/core/echo/echo-signal-runtime/package.json",
+          "jsonpath": "$.version"
+        },
+        {
+          "type": "json",
           "path": "packages/core/echo/echo-signals/package.json",
+          "jsonpath": "$.version"
+        },
+        {
+          "type": "json",
+          "path": "packages/core/echo/echo-signia/package.json",
           "jsonpath": "$.version"
         },
         {

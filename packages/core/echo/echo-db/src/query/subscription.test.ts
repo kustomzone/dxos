@@ -29,7 +29,7 @@ describe('create subscription', () => {
     const task = createExpando();
     db.add(task);
 
-    const counter = createUpdateCounter(task);
+    const counter = createsigniaUpdateCounter(task);
 
     task.title = 'Test title';
     expect(counter.value).to.equal(2);
@@ -114,7 +114,7 @@ describe('create subscription', () => {
     const task = createExpando({ nested: { title: 'Test title' } });
     db.add(task);
 
-    const counter = createUpdateCounter(task);
+    const counter = createsigniaUpdateCounter(task);
 
     expect(counter.value).to.equal(1);
     task.nested.title = 'New title';
@@ -128,7 +128,7 @@ describe('create subscription', () => {
     });
     db.add(task);
 
-    const counter = createUpdateCounter(task);
+    const counter = createsigniaUpdateCounter(task);
 
     expect(counter.value).to.equal(1);
     task.nested.deep_nested.title = 'New title';
@@ -140,7 +140,7 @@ describe('create subscription', () => {
     const task = createExpando({ array: ['Test value'] });
     db.add(task);
 
-    const counter = createUpdateCounter(task);
+    const counter = createsigniaUpdateCounter(task);
 
     expect(counter.value).to.equal(1);
     task.array[0] = 'New value';
@@ -152,7 +152,7 @@ describe('create subscription', () => {
     const task = createExpando({ array: [{ title: 'Test value' }] });
     db.add(task);
 
-    const counter = createUpdateCounter(task);
+    const counter = createsigniaUpdateCounter(task);
 
     expect(counter.value).to.equal(1);
     task.array[0].title = 'New value';
@@ -165,7 +165,7 @@ describe('create subscription', () => {
     const task = createExpando({ array: [nestedArrayHolder] });
     db.add(task);
 
-    const counter = createUpdateCounter(task);
+    const counter = createsigniaUpdateCounter(task);
 
     expect(counter.value).to.equal(1);
     task.array[0].nested_array[0].title = 'New value';
@@ -173,7 +173,7 @@ describe('create subscription', () => {
   });
 });
 
-const createUpdateCounter = (object: any) => {
+const createsigniaUpdateCounter = (object: any) => {
   const counter = { value: 0 };
   const selection = createSubscription(() => {
     counter.value++;

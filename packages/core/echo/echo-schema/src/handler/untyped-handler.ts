@@ -2,7 +2,7 @@
 // Copyright 2024 DXOS.org
 //
 
-import { compositeRuntime, type GenericSignal } from '@dxos/echo-signals/runtime';
+import { compositeRuntime, type GenericSignal } from '@dxos/echo-signal-runtime';
 import { invariant } from '@dxos/invariant';
 
 import { getTargetMeta } from './object';
@@ -44,8 +44,8 @@ export class UntypedReactiveHandler implements ReactiveHandler<ProxyTarget> {
     invariant(typeof target === 'object' && target !== null);
 
     if (!(symbolSignal in target)) {
-      defineHiddenProperty(target, symbolSignal, compositeRuntime.createSignal());
-      defineHiddenProperty(target, symbolPropertySignal, compositeRuntime.createSignal());
+      defineHiddenProperty(target, symbolSignal, compositeRuntime.createSignal('symbol'));
+      defineHiddenProperty(target, symbolPropertySignal, compositeRuntime.createSignal('symbolProperty'));
     }
 
     for (const key of Object.getOwnPropertyNames(target)) {

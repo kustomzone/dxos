@@ -4,16 +4,16 @@
 
 import { test } from 'vitest';
 
-import { updateCounter } from '@dxos/echo-schema/testing';
-import { registerSignalsRuntime } from '@dxos/echo-signals';
-import { compositeRuntime } from '@dxos/echo-signals/runtime';
+import { signiaUpdateCounter } from '@dxos/echo-schema/testing';
+import { compositeRuntime } from '@dxos/echo-signal-runtime';
+import { registerSignalsRuntime } from '@dxos/echo-signia';
 
 registerSignalsRuntime();
 
 test('signals', ({ expect }) => {
-  const sig = compositeRuntime.createSignal();
+  const sig = compositeRuntime.createSignal('test');
 
-  using updates = updateCounter(() => {
+  using updates = signiaUpdateCounter(() => {
     sig.notifyRead();
   });
   expect(updates.count).toEqual(0);

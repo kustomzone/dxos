@@ -15,7 +15,7 @@ import {
   type S,
   SchemaValidator,
 } from '@dxos/echo-schema';
-import { compositeRuntime } from '@dxos/echo-signals/runtime';
+import { compositeRuntime } from '@dxos/echo-signal-runtime';
 import { invariant } from '@dxos/invariant';
 import { ComplexMap, deepMapValues } from '@dxos/util';
 
@@ -160,7 +160,7 @@ const linkAllNestedProperties = (target: ProxyTarget): DecodedAutomergePrimaryVa
 const initInternals = (core: ObjectCore, database?: EchoDatabase): ObjectInternals => ({
   core,
   targetsMap: new ComplexMap((key) => JSON.stringify(key)),
-  signal: compositeRuntime.createSignal(),
+  signal: compositeRuntime.createSignal(core.id),
   linkCache: new Map<string, EchoReactiveObject<any>>(),
   database,
 });

@@ -1,6 +1,6 @@
 {
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "name": "echo-signals",
+  "name": "echo-signia",
   "tags": [
     "scope:echo"
   ],
@@ -11,9 +11,7 @@
     "compile": {
       "options": {
         "entryPoints": [
-          "{projectRoot}/src/core.ts",
-          "{projectRoot}/src/index.ts",
-          "{projectRoot}/src/react.ts"
+          "{projectRoot}/src/index.ts"
         ]
       }
     },

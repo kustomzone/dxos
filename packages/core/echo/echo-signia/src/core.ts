@@ -2,7 +2,7 @@
 // Copyright 2022 DXOS.org
 //
 
-import { signal, batch, untracked } from '@preact/signals-react';
+import { atom, transact, unsafe__withoutCapture } from 'signia';
 
 import { registerSignalsRuntime as registerRuntimeForEcho } from '@dxos/echo-signal-runtime';
 
@@ -18,20 +18,19 @@ export const registerSignalsRuntime = () => {
 
   registerRuntimeForEcho({
     createSignal: (id) => {
-      const thisSignal = signal({});
-      (thisSignal as any).__id = id;
+      const thisSignal = atom(id, {});
 
       return {
         notifyRead: () => {
           const _ = thisSignal.value;
         },
         notifyWrite: () => {
-          thisSignal.value = {};
+          thisSignal.set({});
         },
       };
     },
-    batch,
-    untracked,
+    batch: transact,
+    untracked: unsafe__withoutCapture,
   });
 
   return true;

@@ -6,8 +6,8 @@ import { afterAll, beforeAll, describe, expect, test } from 'vitest';
 
 import { getProxyHandlerSlot, getSchema, getType, getTypeReference } from '@dxos/echo-schema';
 import { type S } from '@dxos/echo-schema';
-import { TestSchema, TestSchemaType, updateCounter } from '@dxos/echo-schema/testing';
-import { registerSignalsRuntime } from '@dxos/echo-signals';
+import { TestSchema, TestSchemaType, signiaUpdateCounter } from '@dxos/echo-schema/testing';
+import { registerSignalsRuntime } from '@dxos/echo-signia';
 
 registerSignalsRuntime();
 
@@ -193,7 +193,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
         other.string = 'qux';
         expect(obj.other.string).to.eq('qux');
 
-        using updates = updateCounter(() => {
+        using updates = signiaUpdateCounter(() => {
           obj.other.string;
         });
 
@@ -285,7 +285,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
       // Not a typical use case, but might come up when interacting with 3rd party libraries.
       test('defineProperty', async () => {
         const obj = await createObject();
-        using updates = updateCounter(() => {
+        using updates = signiaUpdateCounter(() => {
           obj.string;
         });
 
@@ -331,7 +331,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
         test('are synchronous', async () => {
           const obj = await createObject({ string: 'bar' });
 
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             obj.string;
           });
           expect(updates.count, 'update count').to.eq(0);
@@ -343,7 +343,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
         test('in nested objects', async () => {
           const obj = await createObject({ object: { field: 'bar' } });
 
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             obj.object!.field; // TODO(burdon): Better way to demonstrate this? E.g., log?
           });
           expect(updates.count, 'update count').to.eq(0);
@@ -355,7 +355,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
         test('in nested arrays', async () => {
           const obj = await createObject({ stringArray: ['7'] });
 
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             obj.stringArray![0];
           });
           expect(updates.count, 'update count').to.eq(0);
@@ -367,7 +367,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
         test('in nested arrays with objects', async () => {
           const obj = await createObject({ objectArray: [{ field: 'bar' }] });
 
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             obj.objectArray![0].field;
           });
           expect(updates.count, 'update count').to.eq(0);
@@ -379,7 +379,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
         test('in nested arrays with arrays', async () => {
           const obj = await createObject({ twoDimNumberArray: [[1, 2, 3]] });
 
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             obj.twoDimNumberArray![0][0];
           });
           expect(updates.count, 'update count').to.eq(0);
@@ -391,7 +391,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
         test('Object.keys', async () => {
           const obj = await createObject({ number: 42 });
 
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             Object.keys(obj);
           });
           expect(updates.count).to.eq(0);
@@ -412,7 +412,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('set by index', async () => {
           const array = await createReactiveArray(['1', '2', '3']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 
@@ -423,7 +423,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('length', async () => {
           const array = await createReactiveArray(['1', '2', '3']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
           expect(array.length).to.eq(3);
@@ -435,7 +435,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('set length', async () => {
           const array = await createReactiveArray(['1', '2', '3']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 
@@ -446,7 +446,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('push', async () => {
           const array = await createReactiveArray(['1', '2', '3']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 
@@ -457,7 +457,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('pop', async () => {
           const array = await createReactiveArray(['1', '2', '3']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 
@@ -469,7 +469,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('shift', async () => {
           const array = await createReactiveArray(['1', '2', '3']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 
@@ -481,7 +481,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('unshift', async () => {
           const array = await createReactiveArray(['1', '2', '3']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 
@@ -493,7 +493,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('splice', async () => {
           const array = await createReactiveArray(['1', '2', '3']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 
@@ -505,7 +505,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('sort', async () => {
           const array = await createReactiveArray(['3', '2', '1']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 
@@ -523,7 +523,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('reverse', async () => {
           const array = await createReactiveArray(['1', '2', '3']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 
@@ -535,7 +535,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('map', async () => {
           const array = await createReactiveArray(['1', '2', '3']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 
@@ -548,7 +548,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('flatMap', async () => {
           const array = await createReactiveArray(['1', '2', '3']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 
@@ -562,7 +562,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
         test('flat', async () => {
           const obj = await createObject({ twoDimNumberArray: [[1], [2, 3]] });
           const array = obj.twoDimNumberArray!;
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 
@@ -575,7 +575,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('forEach', async () => {
           const array = await createReactiveArray(['1', '2', '3']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 
@@ -589,7 +589,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('spreading', async () => {
           const array = await createReactiveArray(['1', '2', '3']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 
@@ -602,7 +602,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('values', async () => {
           const array = await createReactiveArray(['1', '2', '3']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 
@@ -616,7 +616,7 @@ export const reactiveProxyTests = (testConfigFactory: TestConfigurationFactory):
 
         test('for loop', async () => {
           const array = await createReactiveArray(['1', '2', '3']);
-          using updates = updateCounter(() => {
+          using updates = signiaUpdateCounter(() => {
             array[0];
           });
 

@@ -28,12 +28,12 @@
     "@dxos/async": "workspace:*",
     "@dxos/debug": "workspace:*",
     "@dxos/echo-schema": "workspace:*",
-    "@dxos/echo-signals": "workspace:*",
+    "@dxos/echo-signia": "workspace:*",
     "@dxos/invariant": "workspace:*",
     "@dxos/log": "workspace:*",
     "@dxos/util": "workspace:*",
-    "@preact/signals-core": "^1.6.0",
-    "main-thread-scheduling": "^14.1.1"
+    "main-thread-scheduling": "^14.1.1",
+    "signia": "0.1.5"
   },
   "devDependencies": {
     "@dxos/random": "workspace:*",

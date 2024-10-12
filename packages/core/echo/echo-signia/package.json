@@ -1,0 +1,33 @@
+{
+  "name": "@dxos/echo-signia",
+  "version": "0.6.11",
+  "description": "ECHO object reactivity integration with Signia",
+  "homepage": "https://dxos.org",
+  "bugs": "https://github.com/dxos/dxos/issues",
+  "license": "MIT",
+  "author": "info@dxos.org",
+  "sideEffects": true,
+  "exports": {
+    ".": {
+      "browser": "./dist/lib/browser/index.mjs",
+      "node": {
+        "require": "./dist/lib/node/index.cjs",
+        "default": "./dist/lib/node-esm/index.mjs"
+      },
+      "types": "./dist/types/src/index.d.ts"
+    }
+  },
+  "types": "dist/types/src/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "dependencies": {
+    "@dxos/echo-signal-runtime": "workspace:*",
+    "signia": "0.1.5",
+    "signia-react": "0.1.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

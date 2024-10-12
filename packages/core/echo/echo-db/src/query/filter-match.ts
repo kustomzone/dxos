@@ -4,7 +4,7 @@
 
 import { type Reference } from '@dxos/echo-protocol';
 import { EXPANDO_TYPENAME, isReactiveObject, type EchoReactiveObject } from '@dxos/echo-schema';
-import { compositeRuntime } from '@dxos/echo-signals/runtime';
+import { compositeRuntime } from '@dxos/echo-signal-runtime';
 import { invariant } from '@dxos/invariant';
 import { type PublicKey } from '@dxos/keys';
 import { QueryOptions } from '@dxos/protocols/proto/dxos/echo/filter';
