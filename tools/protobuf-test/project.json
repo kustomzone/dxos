@@ -7,10 +7,7 @@
     "build": {
       "executor": "nx:run-script",
       "options": {
-        "script": "build",
-        "transformers": [
-          "@dxos/log-hook/transformer"
-        ]
+        "script": "build"
       },
       "outputs": [
         "{projectRoot}/dist"

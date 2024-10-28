@@ -4,11 +4,7 @@
   "sourceRoot": "{projectRoot}/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "options": {
-        "outputPath": "{projectRoot}/dist"
-      }
-    },
+    "build": {},
     "lint": {}
   },
   "implicitDependencies": [

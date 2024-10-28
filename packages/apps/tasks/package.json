@@ -3,12 +3,6 @@
   "version": "0.1.0",
   "description": "tasks - a DXOS application",
   "private": true,
-  "scripts": {
-    "build": "tsc --noEmit && vite build",
-    "deploy": "dx app publish",
-    "preview": "vite preview",
-    "serve": "vite"
-  },
   "dependencies": {
     "@dxos/config": "workspace:*",
     "@dxos/echo-schema": "workspace:*",

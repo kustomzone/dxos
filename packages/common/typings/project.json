@@ -7,13 +7,7 @@
   "sourceRoot": "{projectRoot}/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "options": {
-        "main": "{projectRoot}/src/index.d.ts",
-        "outputPath": "{projectRoot}/dist/types",
-        "tsConfig": "{projectRoot}/tsconfig.json"
-      }
-    }
+    "build": {}
   },
   "lint": {
     "executor": "@nx/linter:eslint",

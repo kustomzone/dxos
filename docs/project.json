@@ -16,13 +16,7 @@
         "{projectRoot}/docs/api"
       ]
     },
-    "build": {
-      "options": {
-        "main": "docs/src/index.ts",
-        "outputPath": "docs/dist",
-        "tsConfig": "docs/tsconfig.json"
-      }
-    },
+    "build": {},
     "bundle": {
       "dependsOn": [
         "^build",

@@ -10,9 +10,10 @@
   "author": "DXOS.org",
   "sideEffects": false,
   "scripts": {
-    "build:functions": "esbuild ./src/functions/_worker.ts --bundle --format=esm --outfile=./out/composer/_worker.js",
+    "build:functions": "esbuild ./src/functions/_worker.ts --bundle --format=esm --outfile=./public/_worker.js",
     "copy:assets": "mkdir -p ./public/assets/plugin-sketch && cp -R node_modules/@dxos/plugin-sketch/dist/assets/* ./public/assets/plugin-sketch",
-    "demo": "node -r ts-node/register/transpile-only ./playwright/demos/grid.ts"
+    "demo": "node -r ts-node/register/transpile-only ./playwright/demos/grid.ts",
+    "prebuild": "npm run build:functions & npm run copy:assets"
   },
   "dependencies": {
     "@dxos/app-framework": "workspace:*",

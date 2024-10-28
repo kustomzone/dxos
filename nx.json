@@ -5,10 +5,7 @@
   },
   "parallel": 6,
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "sharedGlobals": [
       "{workspaceRoot}/tsconfig.json",
       "{workspaceRoot}/.eslintrc*.js",
@@ -30,31 +27,19 @@
   "targetDefaults": {
     "build": {
       "cache": true,
-      "dependsOn": [
-        "^build",
-        "prebuild",
-        "compile"
-      ],
-      "executor": "@nx/js:tsc",
-      "inputs": [
-        "production",
-        "^production"
-      ],
+      "dependsOn": ["^build", "prebuild", "compile"],
+      "executor": "nx:run-commands",
+      "inputs": ["default", "^production"],
       "options": {
-        "main": "{projectRoot}/src/index.ts",
-        "outputPath": "{projectRoot}/dist/types",
-        "tsConfig": "{projectRoot}/tsconfig.json"
+        "commands": ["tsc"],
+        "cwd": "{projectRoot}"
       },
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      "outputs": ["{projectRoot}/dist/types"]
     },
     "bundle": {
       "cache": true,
-      "dependsOn": [
-        "^build",
-        "prebuild"
-      ],
+      "dependsOn": ["^build", "prebuild"],
+      "executor": "nx:run-commands",
       "inputs": [
         "production",
         "^production",
@@ -100,32 +85,25 @@
         {
           "env": "SENTRY_RELEASE_AUTH_TOKEN"
         }
-      ]
+      ],
+      "options": {
+        "commands": ["NODE_OPTIONS='--max-old-space-size=8192' vite build"],
+        "cwd": "{projectRoot}"
+      }
     },
     "compile": {
       "cache": true,
-      "dependsOn": [
-        "^compile",
-        "prebuild"
-      ],
+      "dependsOn": ["^compile", "prebuild"],
       "executor": "@dxos/esbuild:build",
-      "inputs": [
-        "production",
-        "^production"
-      ],
+      "inputs": ["production", "^production"],
       "options": {
         "outputPath": "{projectRoot}/dist/lib"
       },
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      "outputs": ["{options.outputPath}"]
     },
     "e2e": {
       "cache": true,
-      "dependsOn": [
-        "prebuild",
-        "^compile"
-      ],
+      "dependsOn": ["prebuild", "^compile"],
       "executor": "@nx/playwright:playwright",
       "inputs": [
         "default",
@@ -147,59 +125,43 @@
     "lint": {
       "cache": true,
       "executor": "@nx/linter:eslint",
-      "inputs": [
-        "default"
-      ],
+      "inputs": ["default"],
       "options": {
         "format": "unix",
-        "lintFilePatterns": [
-          "{projectRoot}/**/*.{ts,tsx,js,jsx}"
-        ],
+        "lintFilePatterns": ["{projectRoot}/**/*.{ts,tsx,js,jsx}"],
         "quiet": true
       }
     },
     "prebuild": {
       "cache": true,
-      "dependsOn": [
-        "^compile"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ]
+      "dependsOn": ["^compile"],
+      "inputs": ["production", "^production"]
     },
     "prerelease": {
       "cache": true,
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "default",
-        "^production"
-      ]
+      "dependsOn": ["^build"],
+      "inputs": ["default", "^production"]
     },
     "preview": {
-      "inputs": [
-        "production",
-        "^production"
-      ]
+      "executor": "nx:run-commands",
+      "inputs": ["production", "^production"],
+      "options": {
+        "commands": ["NODE_OPTIONS='--max-old-space-size=8192' vite preview"],
+        "cwd": "{projectRoot}"
+      }
     },
     "serve": {
-      "dependsOn": [
-        "^compile",
-        "prebuild"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ]
+      "dependsOn": ["^compile", "prebuild"],
+      "executor": "nx:run-commands",
+      "inputs": ["production", "^production"],
+      "options": {
+        "commands": ["vite serve"],
+        "cwd": "{projectRoot}"
+      }
     },
     "test": {
       "cache": true,
-      "dependsOn": [
-        "prebuild",
-        "^compile"
-      ],
+      "dependsOn": ["prebuild", "^compile"],
       "executor": "@nx/vite:test",
       "inputs": [
         "default",
@@ -218,10 +180,7 @@
           "env": "EDGE_ENDPOINT"
         }
       ],
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}",
-        "{workspaceRoot}/test-results/{projectRoot}"
-      ]
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}", "{workspaceRoot}/test-results/{projectRoot}"]
     },
     "compile-lib": {
       "cache": true

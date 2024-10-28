@@ -25,13 +25,8 @@
       ]
     },
     "bundle": {
-      "executor": "@nx/vite:build",
-      "options": {
-        "generatePackageJson": false,
-        "outputPath": "{projectRoot}/out/devtools"
-      },
       "outputs": [
-        "{options.outputPath}"
+        "{projectRoot}/out/devtools"
       ]
     },
     "compile": {

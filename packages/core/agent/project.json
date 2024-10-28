@@ -7,13 +7,7 @@
   "sourceRoot": "{projectRoot}/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "options": {
-        "transformers": [
-          "@dxos/log-hook/transformer"
-        ]
-      }
-    },
+    "build": {},
     "compile": {
       "options": {
         "entryPoints": [

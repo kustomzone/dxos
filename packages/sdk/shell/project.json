@@ -13,13 +13,8 @@
         "^build",
         "compile"
       ],
-      "executor": "@nx/vite:build",
-      "options": {
-        "generatePackageJson": false,
-        "outputPath": "{projectRoot}/dist/bundle"
-      },
       "outputs": [
-        "{options.outputPath}"
+        "{projectRoot}/dist/bundle"
       ]
     },
     "compile": {

@@ -7,13 +7,7 @@
   "sourceRoot": "{projectRoot}/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "options": {
-        "main": "{projectRoot}/src/index.ts",
-        "outputPath": "{projectRoot}/dist",
-        "tsConfig": "{projectRoot}/tsconfig.json"
-      }
-    },
+    "build": {},
     "lint": {
       "options": {
         "format": "unix",

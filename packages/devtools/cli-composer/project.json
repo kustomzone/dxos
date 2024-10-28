@@ -17,8 +17,14 @@
       }
     },
     "build": {
+      "executor": "@nx/js:tsc",
       "options": {
-        "outputPath": "{projectRoot}/dist"
+        "main": "{projectRoot}/src/index.ts",
+        "outputPath": "{projectRoot}/dist",
+        "transformers": [
+          "@dxos/log-hook/transformer"
+        ],
+        "tsConfig": "{projectRoot}/tsconfig.json"
       }
     },
     "lint": {}

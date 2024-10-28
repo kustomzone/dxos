@@ -7,24 +7,10 @@
   "sourceRoot": "{projectRoot}/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "options": {
-        "main": "{projectRoot}/src/index.ts",
-        "outputPath": "{projectRoot}/dist",
-        "transformers": [
-          "@dxos/log-hook/transformer"
-        ],
-        "tsConfig": "{projectRoot}/tsconfig.json"
-      }
-    },
+    "build": {},
     "bundle": {
-      "executor": "@nx/vite:build",
-      "options": {
-        "generatePackageJson": false,
-        "outputPath": "{projectRoot}/out"
-      },
       "outputs": [
-        "{options.outputPath}"
+        "{projectRoot}/out"
       ]
     },
     "e2e": {},

@@ -23,6 +23,7 @@ const phosphorIconsCore = join(rootDir, '/node_modules/@phosphor-icons/core/asse
 // https://vitejs.dev/config
 export default defineConfig({
   build: {
+    outDir: 'out/composer-crx',
     rollupOptions: {
       // https://crxjs.dev/vite-plugin/concepts/pages
       input: {
@@ -44,10 +45,7 @@ export default defineConfig({
     ConfigPlugin(),
     ThemePlugin({
       root: __dirname,
-      content: [
-        resolve(__dirname, './*.html'),
-        resolve(__dirname, './src/**/*.{js,ts,jsx,tsx}'),
-      ],
+      content: [resolve(__dirname, './*.html'), resolve(__dirname, './src/**/*.{js,ts,jsx,tsx}')],
     }),
     IconsPlugin({
       symbolPattern: 'ph--([a-z]+[a-z-]*)--(bold|duotone|fill|light|regular|thin)',

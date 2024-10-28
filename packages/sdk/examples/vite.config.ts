@@ -31,6 +31,7 @@ export default defineConfig({
     },
   },
   build: {
+    outDir: 'out/demo',
     sourcemap: true,
   },
   resolve: {
@@ -45,10 +46,7 @@ export default defineConfig({
   plugins: [
     ThemePlugin({
       root: __dirname,
-      content: [
-        resolve(__dirname, './index.html'),
-        resolve(__dirname, './src/**/*.{js,ts,jsx,tsx}'),
-      ],
+      content: [resolve(__dirname, './index.html'), resolve(__dirname, './src/**/*.{js,ts,jsx,tsx}')],
     }),
     TopLevelAwaitPlugin(),
     WasmPlugin(),

@@ -33,6 +33,7 @@ export default defineConfig({
     },
   },
   build: {
+    outDir: 'out/todomvc',
     sourcemap: true,
     rollupOptions: {
       input: {

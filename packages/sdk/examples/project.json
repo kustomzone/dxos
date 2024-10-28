@@ -8,13 +8,8 @@
   "targets": {
     "build": {},
     "bundle": {
-      "executor": "@nx/vite:build",
-      "options": {
-        "generatePackageJson": false,
-        "outputPath": "{projectRoot}/out/demo"
-      },
       "outputs": [
-        "{options.outputPath}"
+        "{projectRoot}/out/demo"
       ]
     },
     "lint": {

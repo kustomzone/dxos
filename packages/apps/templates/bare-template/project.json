@@ -11,10 +11,18 @@
       "dependsOn": [
         "^build"
       ],
+      "executor": "@nx/js:tsc",
       "options": {
         "main": "{projectRoot}/src/template.t.ts",
-        "outputPath": "{projectRoot}/dist"
-      }
+        "outputPath": "{projectRoot}/dist",
+        "transformers": [
+          "@dxos/log-hook/transformer"
+        ],
+        "tsConfig": "{projectRoot}/tsconfig.json"
+      },
+      "outputs": [
+        "{options.outputPath}"
+      ]
     },
     "lint": {},
     "test": {

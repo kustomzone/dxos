@@ -9,21 +9,11 @@
   "targets": {
     "build": {},
     "bundle": {
-      "executor": "@nx/vite:build",
-      "options": {
-        "generatePackageJson": false,
-        "outputPath": "{projectRoot}/out/composer-crx"
-      },
       "outputs": [
-        "{options.outputPath}"
+        "{projectRoot}/out/composer-crx"
       ]
     },
     "lint": {},
-    "serve": {
-      "executor": "@nx/vite:dev-server",
-      "options": {
-        "buildTarget": "composer-crx:bundle"
-      }
-    }
+    "serve": {}
   }
 }

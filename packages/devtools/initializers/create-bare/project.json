@@ -7,14 +7,7 @@
   "sourceRoot": "{projectRoot}/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "options": {
-        "outputPath": "{projectRoot}/dist"
-      }
-    },
+    "build": {},
     "lint": {}
   }
 }

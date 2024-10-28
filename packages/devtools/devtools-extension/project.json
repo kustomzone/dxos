@@ -9,13 +9,8 @@
   "targets": {
     "build": {},
     "bundle": {
-      "executor": "@nx/vite:build",
-      "options": {
-        "generatePackageJson": false,
-        "outputPath": "{projectRoot}/out/devtools-extension"
-      },
       "outputs": [
-        "{options.outputPath}"
+        "{projectRoot}/out/devtools-extension"
       ]
     },
     "lint": {}

@@ -12,6 +12,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 // https://vitejs.dev/config
 export default defineConfig({
   build: {
+    outDir: 'dist/bundle',
     sourcemap: true,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
