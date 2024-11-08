@@ -8,8 +8,9 @@ import { type Meta, type StoryObj } from '@storybook/react';
 import React from 'react';
 
 import { createMutableSchema } from '@dxos/echo-schema/testing';
-import { withClientProvider } from '@dxos/react-client/testing';
+import { withClientProvider, useStoryClientData } from '@dxos/react-client/testing';
 import { SyntaxHighlighter } from '@dxos/react-ui-syntax-highlighter';
+import { ViewType } from '@dxos/schema';
 import { TestSchema, testView } from '@dxos/schema/testing';
 import { withTheme, withLayout } from '@dxos/storybook-utils';
 
@@ -34,7 +35,7 @@ const meta: Meta<typeof ViewEditor> = {
   title: 'ui/react-ui-data/ViewEditor',
   component: ViewEditor,
   render: DefaultStory,
-  decorators: [withClientProvider(), withLayout({ fullscreen: true }), withTheme],
+  decorators: [withLayout({ fullscreen: true }), withTheme],
   parameters: {
     translations,
   },
@@ -49,4 +50,23 @@ export const Default: Story = {
     schema: createMutableSchema(TestSchema),
     view: testView,
   },
+};
+
+export const Echo: Story = {
+  render: () => {
+    const { schema, view } = useStoryClientData<Pick<ViewEditorProps, 'schema' | 'view'>>();
+    return <DefaultStory schema={schema} view={view} />;
+  },
+  decorators: [
+    withClientProvider({
+      createIdentity: true,
+      createSpace: true,
+      types: [ViewType],
+      onSpaceCreated: ({ space }) => {
+        const schema = space.db.schemaRegistry.addSchema(TestSchema);
+        const view = space.db.add(testView);
+        return { schema, view };
+      },
+    }),
+  ],
 };

@@ -76,6 +76,7 @@ export const ViewEditor = ({ classNames, schema, view, readonly }: ViewEditorPro
               {items?.map((item) => (
                 <List.Item<FieldType> key={item.property} item={item} classNames={mx(grid, ghostHover)}>
                   <List.ItemDragHandle />
+                  {/* TODO(wittjosiah): Factor component out to be able to useCallback. */}
                   <List.ItemTitle onClick={() => handleSelect(item)}>{item.property}</List.ItemTitle>
                   <List.ItemDeleteButton onClick={() => handleDelete(item)} />
                 </List.Item>

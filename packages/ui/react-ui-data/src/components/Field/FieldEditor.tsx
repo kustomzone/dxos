@@ -13,10 +13,28 @@ import {
   type ViewType,
   type ViewProjection,
   type PropertyType,
+  type SchemaProperty,
 } from '@dxos/schema';
 
 import { translationKey } from '../../translations';
 import { Form, FormInput } from '../Form';
+
+const FormatField = (props: any) => {
+  const { t } = useTranslation(translationKey);
+  return (
+    <FormInput<PropertyType>
+      {...props}
+      options={FormatEnums.filter((value) => value !== FormatEnum.None).map((value) => ({
+        value,
+        label: t(`format ${value}`),
+      }))}
+    />
+  );
+};
+
+const CustomFields = { format: FormatField };
+const filter = (props: SchemaProperty<PropertyType>[]) => props.filter((p) => p.property !== 'type');
+const sort: (keyof PropertyType)[] = ['property', 'format'];
 
 export const FieldEditor = ({
   field,
@@ -29,7 +47,6 @@ export const FieldEditor = ({
   view: ViewType;
   onComplete: () => void;
 }) => {
-  const { t } = useTranslation(translationKey);
   const [props, setProps] = useState<PropertyType>(projection.getFieldProjection(field.property).props);
   useEffect(() => {
     const { props } = projection.getFieldProjection(field.property);
@@ -85,23 +102,13 @@ export const FieldEditor = ({
       autoFocus
       values={props}
       schema={fieldSchema}
-      filter={(props) => props.filter((p) => p.property !== 'type')}
-      sort={['property', 'format']}
+      filter={filter}
+      sort={sort}
       additionalValidation={handleAdditionalValidation}
       onValuesChanged={handleValueChanged}
       onSave={handleSet}
       onCancel={onComplete}
-      Custom={{
-        format: (props) => (
-          <FormInput<PropertyType>
-            {...props}
-            options={FormatEnums.filter((value) => value !== FormatEnum.None).map((value) => ({
-              value,
-              label: t(`format ${value}`),
-            }))}
-          />
-        ),
-      }}
+      Custom={CustomFields}
     />
   );
 };
