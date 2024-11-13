@@ -43,52 +43,50 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
 
-          security find-identity -v -p codesigning
+      - name: Homebrew
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          brew install automake libtool
+          brew install cairo giflib git-lfs jpeg libpng librsvg pango pkg-config python-setuptools
 
-      # - name: Homebrew
-      #   run: |
-      #     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      #     brew install automake libtool
-      #     brew install cairo giflib git-lfs jpeg libpng librsvg pango pkg-config python-setuptools
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # - name: Checkout
-      #   uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
 
-      # - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.12.1
+          cache: 'pnpm'
 
-      # - uses: actions/setup-node@v4
-      #   with:
-      #     node-version: 20.12.1
-      #     cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      # - name: Install dependencies
-      #   run: pnpm install --frozen-lockfile
+      - name: Bundle Composer
+        run: pnpm exec nx bundle composer-app
+        env:
+          DX_ENVIRONMENT: production
+          DX_HOST: true
+          NODE_OPTIONS: --max-old-space-size=8192
 
-      # - name: Bundle Composer
-      #   run: pnpm exec nx bundle composer-app
-      #   env:
-      #     DX_ENVIRONMENT: production
-      #     DX_HOST: true
-      #     NODE_OPTIONS: --max-old-space-size=8192
+      - name: Checkout Socket
+        uses: actions/checkout@v4
+        with:
+          repository: socketsupply/socket
+          ref: master
+          path: socket
 
-      # - name: Checkout Socket
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: socketsupply/socket
-      #     ref: master
-      #     path: socket
+      - name: Setup Socket
+        run: npm run relink
+        working-directory: socket
+        env:
+          NO_ANDROID: 1
 
-      # - name: Setup Socket
-      #   run: npm run relink
-      #   working-directory: socket
-      #   env:
-      #     NO_ANDROID: 1
+      - name: macOS Build
+        run: ssc build -c
+        working-directory: packages/apps/composer-app
 
-      # - name: macOS Build
-      #   run: ssc build
-      #   working-directory: packages/apps/composer-app
-
-      # - uses: actions/upload-artifact@v4
-      #   with:
-      #     path: packages/apps/composer-app/build
-      #     include-hidden-files: true
+      - uses: actions/upload-artifact@v4
+        with:
+          path: packages/apps/composer-app/build
+          include-hidden-files: true
