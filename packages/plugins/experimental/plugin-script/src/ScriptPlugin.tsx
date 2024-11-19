@@ -122,12 +122,12 @@ export const ScriptPlugin = (): PluginDefinition<ScriptPluginProvides> => {
             }
 
             case 'complementary--automation': {
-              if (data.subject instanceof ScriptType) {
-                return {
-                  node: <AutomationPanel subject={data.subject as any} />,
-                  disposition: 'hoist',
-                };
-              }
+              // if (data.subject instanceof ScriptType) {
+              return {
+                node: <AutomationPanel subject={data.subject as any} />,
+                disposition: 'hoist',
+              };
+              // }
               break;
             }
 
