@@ -6,8 +6,7 @@
   "license": "MIT",
   "author": "DXOS.org",
   "sideEffects": true,
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "types": "./src/index.ts",
   "bin": {
     "build-protobuf": "./bin/main.js"
   },
@@ -46,6 +45,8 @@
     "typescript": "^5.7.2"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "main": "dist/src/index.js",
+    "types": "dist/src/index.d.ts"
   }
 }

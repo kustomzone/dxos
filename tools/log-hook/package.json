@@ -8,11 +8,10 @@
   "license": "MIT",
   "author": "DXOS.org",
   "sideEffects": true,
-  "main": "dist/src/index.js",
   "browser": {
     "node:util": "util"
   },
-  "types": "dist/src/index.d.ts",
+  "types": "./src/index.ts",
   "files": [
     "dist",
     "src"
@@ -24,5 +23,9 @@
     "sorcery": "^0.10.0",
     "source-map": "^0.6.1"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "publishConfig": {
+    "main": "dist/src/index.js",
+    "types": "dist/src/index.d.ts"
+  }
 }

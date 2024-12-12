@@ -14,7 +14,7 @@
       "types": "./dist/src/index.d.ts"
     }
   },
-  "types": "dist/src/index.d.ts",
+  "types": "./src/index.ts",
   "files": [
     "dist",
     "src"
@@ -27,5 +27,8 @@
   },
   "devDependencies": {
     "@types/picomatch": "^3.0.1"
+  },
+  "publishConfig": {
+    "types": "dist/src/index.d.ts"
   }
 }

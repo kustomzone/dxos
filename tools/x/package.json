@@ -8,8 +8,7 @@
   "license": "MIT",
   "author": "info@dxos.org",
   "sideEffects": true,
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "types": "./src/index.ts",
   "bin": {
     "x": "./bin/x.js"
   },
@@ -47,5 +46,9 @@
     "@types/minimatch": "^5.1.2",
     "@types/react": "~18.2.0",
     "@types/yargs": "~16.0.1"
+  },
+  "publishConfig": {
+    "main": "dist/src/index.js",
+    "types": "dist/src/index.d.ts"
   }
 }

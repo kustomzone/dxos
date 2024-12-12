@@ -24,7 +24,7 @@
       "types": "./dist/types/src/stream.d.ts"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {
       "stream": [
@@ -51,6 +51,7 @@
     "@types/lodash.merge": "^4.6.6"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "dist/types/src/index.d.ts"
   }
 }

@@ -7,14 +7,13 @@
   "license": "MIT",
   "author": "DXOS.org",
   "sideEffects": true,
-  "main": "dist/lib/node/index.cjs",
   "browser": {
     "./src/loaders/index.ts": "./src/loaders/browser.js",
     "./src/savers/index.ts": "./src/savers/browser.js",
     "./src/plugin/index.ts": false,
     "./dist/lib/node/index.cjs": "./dist/lib/browser/index.mjs"
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "files": [
     "dist",
     "esbuild-plugin.js",
@@ -49,7 +48,9 @@
     "webpack": "^5.88.2"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "main": "dist/lib/node/index.cjs",
+    "types": "dist/types/src/index.d.ts"
   },
   "typedoc": {
     "entryPoint": "src/index.ts"

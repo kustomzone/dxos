@@ -20,7 +20,7 @@
       "node": "./dist/lib/node-esm/main.mjs"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {
       "main": [
@@ -40,6 +40,7 @@
     "@dxos/cli": "workspace:*"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "restricted",
+    "types": "dist/types/src/index.d.ts"
   }
 }

@@ -15,7 +15,7 @@
       "node": "./dist/lib/node-esm/index.mjs"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {}
   },
@@ -27,7 +27,8 @@
     "@dxos/node-std": "workspace:*"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "dist/types/src/index.d.ts"
   },
   "typedoc": {
     "entryPoint": "src/index.ts"

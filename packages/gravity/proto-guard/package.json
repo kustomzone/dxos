@@ -16,7 +16,7 @@
       "node": "./dist/lib/node/index.cjs"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "files": [
     "dist",
     "src"
@@ -45,6 +45,7 @@
     "@types/yargs": "~16.0.1"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "restricted",
+    "types": "dist/types/src/index.d.ts"
   }
 }

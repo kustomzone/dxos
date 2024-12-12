@@ -15,7 +15,7 @@
       "node": "./dist/lib/node-esm/index.mjs"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {}
   },
@@ -39,6 +39,7 @@
     "base-x": "~3.0.9"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "dist/types/src/index.d.ts"
   }
 }

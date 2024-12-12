@@ -16,7 +16,7 @@
       "node": "./dist/lib/node-esm/index.mjs"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "files": [
     "dist",
     "src"
@@ -41,7 +41,8 @@
     "inquirer": "^12.0.0"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "restricted",
+    "types": "dist/types/src/index.d.ts"
   },
   "beast": {}
 }

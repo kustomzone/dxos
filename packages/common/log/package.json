@@ -21,7 +21,7 @@
     "./src/platform/node/index.ts": "./src/platform/browser/index.ts",
     "./src/processors/console-processor.ts": "./src/processors/console-stub.ts"
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {}
   },
@@ -43,6 +43,7 @@
     "@types/lodash.omit": "^4.5.7"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "dist/types/src/index.d.ts"
   }
 }

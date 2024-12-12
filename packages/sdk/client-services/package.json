@@ -25,7 +25,7 @@
     "./src/packlets/diagnostics/diagnostics-broadcast.ts": "./src/packlets/diagnostics/browser-diagnostics-broadcast.ts",
     "./testing.js": "./dist/lib/browser/packlets/testing/index.mjs"
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {
       "testing": [
@@ -86,7 +86,8 @@
     "get-port-please": "^3.1.1"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "dist/types/src/index.d.ts"
   },
   "beast": {
     "classDiagrams": [

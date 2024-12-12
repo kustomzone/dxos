@@ -15,7 +15,7 @@
       "node": "./dist/lib/node-esm/index.mjs"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {}
   },
@@ -109,5 +109,8 @@
   "optionalDependencies": {
     "@dxos/random": "workspace:*",
     "date-fns": "^3.3.1"
+  },
+  "publishConfig": {
+    "types": "dist/types/src/index.d.ts"
   }
 }

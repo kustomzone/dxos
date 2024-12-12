@@ -22,7 +22,7 @@
       "types": "./dist/types/src/main.d.ts"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {
       "main": [
@@ -68,6 +68,7 @@
     "typescript": "^5.7.2"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "dist/types/src/index.d.ts"
   }
 }

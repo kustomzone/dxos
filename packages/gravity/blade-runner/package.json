@@ -20,7 +20,7 @@
       "node": "./dist/lib/node-esm/main.mjs"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {
       "main": [
@@ -88,6 +88,7 @@
     "yargs": "~16.2.0"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "restricted",
+    "types": "dist/types/src/index.d.ts"
   }
 }

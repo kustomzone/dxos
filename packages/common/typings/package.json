@@ -7,11 +7,12 @@
   "license": "MIT",
   "author": "DXOS.org",
   "sideEffects": true,
-  "types": "./src/index.d.ts",
+  "types": "./src/index.ts",
   "scripts": {
     "check": "tsc --noEmit"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "./src/index.d.ts"
   }
 }

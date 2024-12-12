@@ -23,7 +23,7 @@
       "require": "./styles/defaults.css"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {
       "testing": [
@@ -69,6 +69,7 @@
     "@dxos/random": "workspace:*"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "dist/types/src/index.d.ts"
   }
 }

@@ -49,7 +49,7 @@
       "node": "./dist/lib/node-esm/worker.mjs"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {
       "devtools": [
@@ -113,7 +113,8 @@
     "@dxos/react-ui-theme": "workspace:*"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "dist/types/src/index.d.ts"
   },
   "typedoc": {
     "entryPoint": "src/index.ts"

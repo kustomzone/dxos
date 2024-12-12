@@ -24,7 +24,7 @@
       "node": "./dist/lib/node-esm/types.mjs"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {
       "testing": [
@@ -72,6 +72,7 @@
     "@types/ws": "^7.4.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "dist/types/src/index.d.ts"
   }
 }

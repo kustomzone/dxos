@@ -21,7 +21,7 @@
       "browser": "./dist/lib/browser/types.mjs"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {
       "meta": [
@@ -82,6 +82,7 @@
     "react-dom": "~18.2.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "dist/types/src/index.d.ts"
   }
 }

@@ -46,7 +46,7 @@
   "browser": {
     "./src/transport/tcp/tcp-transport.ts": "./src/transport/tcp/tcp-transport.browser.ts"
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {
       "testing": [
@@ -98,7 +98,8 @@
     "fetch-mock": "^11.0.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "dist/types/src/index.d.ts"
   },
   "beast": {
     "classDiagrams": [

@@ -15,7 +15,7 @@
       "node": "./dist/lib/node-esm/index.mjs"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {}
   },
@@ -34,5 +34,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.13"
+  },
+  "publishConfig": {
+    "types": "dist/types/src/index.d.ts"
   }
 }

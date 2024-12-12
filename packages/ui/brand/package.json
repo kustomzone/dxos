@@ -13,7 +13,7 @@
       "browser": "./dist/lib/browser/index.mjs"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {}
   },
@@ -42,5 +42,8 @@
     "@phosphor-icons/react": "^2.1.5",
     "react": "~18.2.0",
     "react-dom": "~18.2.0"
+  },
+  "publishConfig": {
+    "types": "dist/types/src/index.d.ts"
   }
 }

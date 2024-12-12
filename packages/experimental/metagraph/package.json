@@ -8,12 +8,11 @@
   "license": "MIT",
   "author": "DXOS.org",
   "sideEffects": true,
-  "main": "dist/lib/node/index.cjs",
   "browser": {
     "./dist/lib/node/index.cjs": "./dist/lib/browser/index.mjs",
     "./testing.js": "./dist/lib/browser/testing/index.mjs"
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "files": [
     "testing.d.ts",
     "testing.js",
@@ -26,5 +25,9 @@
     "@dxos/log": "workspace:*",
     "@dxos/protocols": "workspace:*",
     "cross-fetch": "^3.1.5"
+  },
+  "publishConfig": {
+    "main": "dist/lib/node/index.cjs",
+    "types": "dist/types/src/index.d.ts"
   }
 }

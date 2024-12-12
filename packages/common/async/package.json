@@ -17,7 +17,7 @@
       "types": "./dist/types/src/index.d.ts"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {}
   },
@@ -39,6 +39,7 @@
     "@types/zen-observable": "^0.8.3"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "dist/types/src/index.d.ts"
   }
 }

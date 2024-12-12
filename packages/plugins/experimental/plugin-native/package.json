@@ -17,7 +17,7 @@
       "browser": "./dist/lib/browser/meta.mjs"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {
       "meta": [
@@ -40,6 +40,7 @@
     "vite": "5.4.7"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "dist/types/src/index.d.ts"
   }
 }

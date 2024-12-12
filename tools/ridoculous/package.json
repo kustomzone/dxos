@@ -9,8 +9,7 @@
   "author": "info@dxos.org",
   "sideEffects": true,
   "type": "module",
-  "main": "dist/src/index.js",
-  "types": "./dist/src/index.d.ts",
+  "types": "./src/index.ts",
   "bin": {
     "ridoculous": "./bin/ridoculous.js"
   },
@@ -49,5 +48,9 @@
     "@types/protocol-buffers-schema": "^3.4.1",
     "@types/yargs": "~16.0.1",
     "diff": "~5.1.0"
+  },
+  "publishConfig": {
+    "main": "dist/src/index.js",
+    "types": "./dist/src/index.d.ts"
   }
 }

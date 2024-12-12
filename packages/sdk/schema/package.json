@@ -18,7 +18,7 @@
       "node": "./dist/lib/node-esm/testing/index.mjs"
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {
       "testing": [
@@ -59,6 +59,7 @@
     "effect": "^3.9.2"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "dist/types/src/index.d.ts"
   }
 }

@@ -24,7 +24,7 @@
       }
     }
   },
-  "types": "dist/types/src/index.d.ts",
+  "types": "./src/index.ts",
   "typesVersions": {
     "*": {
       "react": [
@@ -95,6 +95,7 @@
     "@phosphor-icons/react": "^2.1.5"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "types": "dist/types/src/index.d.ts"
   }
 }
