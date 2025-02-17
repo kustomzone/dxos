@@ -8,6 +8,7 @@ import {
   EchoIdentifierAnnotationId,
   EchoSchema,
   EntityKind,
+  getSchemaDXN,
   ObjectAnnotationId,
   S,
   StoredSchema,
@@ -67,12 +68,11 @@ describe('schema registry', () => {
       } satisfies ObjectAnnotation,
       [EchoIdentifierAnnotationId]: `dxn:echo:@:${echoSchema.id}`,
     });
-    console.log(echoSchema.ast);
-    console.log(expectedSchema.ast);
     expect(echoSchema.ast).to.deep.eq(expectedSchema.ast);
     expect(registry.hasSchema(echoSchema)).to.be.true;
     expect(registry.getSchemaById(echoSchema.id)?.ast).to.deep.eq(expectedSchema.ast);
     expect(echoSchema.jsonSchema.$id).toEqual(`dxn:echo:@:${echoSchema.id}`);
+    expect(getSchemaDXN(echoSchema)?.toString()).to.eq(`dxn:echo:@:${echoSchema.id}`);
   });
 
   test('add new schema - preserves field order', async () => {
@@ -86,8 +86,6 @@ describe('schema registry', () => {
       } satisfies ObjectAnnotation,
       [EchoIdentifierAnnotationId]: `dxn:echo:@:${echoSchema.id}`,
     });
-    console.log(echoSchema.ast);
-    console.log(expectedSchema.ast);
     expect(echoSchema.ast).to.deep.eq(expectedSchema.ast);
     expect(registry.hasSchema(echoSchema)).to.be.true;
     expect(registry.getSchemaById(echoSchema.id)?.ast).to.deep.eq(expectedSchema.ast);

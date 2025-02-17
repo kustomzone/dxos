@@ -13,6 +13,7 @@ import { safeParseJson } from '@dxos/util';
 
 import { ToggleContainer } from './ToggleContainer';
 import { MarkdownViewer } from '../MarkdownViewer';
+import { getTypename } from '@dxos/echo-schema';
 
 export const ThreadMessage: FC<
   ThemedClassName<{
@@ -91,6 +92,15 @@ const componentMap: Record<string, FC<{ block: MessageContentBlock }>> = {
     return (
       <ToggleContainer title={title ?? 'JSON'} toggle>
         <Json data={safeParseJson(block.json ?? block)} classNames='text-sm' />
+      </ToggleContainer>
+    );
+  },
+
+  object: ({ block }) => {
+    invariant(block.type === 'object');
+    return (
+      <ToggleContainer title={getTypename(block.object)} toggle defaultOpen>
+        <Json data={block.object} classNames='text-sm' />
       </ToggleContainer>
     );
   },

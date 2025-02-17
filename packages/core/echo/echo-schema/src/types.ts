@@ -143,6 +143,11 @@ export const requireTypeReference = (schema: S.Schema<any>): Reference => {
 
 // TODO(dmaretskyi): Unify with `getTypeReference`.
 export const getSchemaDXN = (schema: S.Schema.AnyNoContext): DXN | undefined => {
+  const echoId = getEchoIdentifierAnnotation(schema);
+  if (echoId) {
+    return DXN.parse(echoId);
+  }
+
   // TODO(dmaretskyi): Add support for dynamic schema.
   const objectAnnotation = getObjectAnnotation(schema);
   if (!objectAnnotation) {

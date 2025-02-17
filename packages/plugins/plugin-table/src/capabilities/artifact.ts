@@ -7,7 +7,7 @@ import { pipe } from 'effect';
 import { Capabilities, chain, contributes, createIntent, type PromiseIntentDispatcher } from '@dxos/app-framework';
 import { defineArtifact, defineTool, ToolResult } from '@dxos/artifact';
 import { createArtifactElement } from '@dxos/assistant';
-import { isInstanceOf, S } from '@dxos/echo-schema';
+import { createStatic, isInstanceOf, S } from '@dxos/echo-schema';
 import { invariant } from '@dxos/invariant';
 import { SpaceAction } from '@dxos/plugin-space/types';
 import { Filter, fullyQualifiedId, type Space } from '@dxos/react-client/echo';
@@ -65,26 +65,30 @@ export default () => {
             return ToolResult.Error(`Schema not found: ${typename}`);
           }
 
-          const intent = pipe(
-            createIntent(TableAction.Create, {
-              space: extensions.space,
-              initialSchema: typename,
-              name: name ?? schema.typename,
-            }),
-            chain(SpaceAction.AddObject, { target: extensions.space }),
-          );
+          // const intent = pipe(
+          //   createIntent(TableAction.Create, {
+          //     space: extensions.space,
+          //     initialSchema: typename,
+          //     name: name ?? schema.typename,
+          //   }),
+          //   chain(SpaceAction.AddObject, { target: extensions.space }),
+          // );
 
-          const { data, error } = await extensions.dispatch(intent);
-          if (!data || error) {
-            return ToolResult.Error(error?.message ?? 'Failed to create table');
-          }
+          // const { data, error } = await extensions.dispatch(intent);
+          // if (!data || error) {
+          //   return ToolResult.Error(error?.message ?? 'Failed to create table');
+          // }
 
-          // Verify the table was created with a view
-          const table = data.object;
-          const view = await table.view?.load();
-          invariant(view, 'Table view was not initialized correctly');
+          // // Verify the table was created with a view
+          // const table = data.object;
+          // const view = await table.view?.load();
+          // invariant(view, 'Table view was not initialized correctly');
 
-          return ToolResult.Success(createArtifactElement(data.id));
+          // return ToolResult.Success(createArtifactElement(data.id));
+
+
+          const table = createStatic(TableType, { name: name ?? schema.typename, threads: [] });
+
         },
       }),
       defineTool({
@@ -175,17 +179,30 @@ export default () => {
           const { objects: tables } = await space.db.query(Filter.schema(TableType)).run();
           const table = tables.find((table) => fullyQualifiedId(table) === id);
           invariant(isInstanceOf(TableType, table));
-          const intent = createIntent(TableAction.AddRow, {
-            table,
-            data,
-          });
 
-          const { error } = await extensions.dispatch(intent);
-          if (error) {
-            return ToolResult.Error(error?.message ?? 'Failed to add row to table');
-          }
+          const schema = await space.db.schemaRegistry
+            .query({ typename: (await table.view!.load()).query.type })
+            .first();
+          const row = createStatic(schema, data);
 
-          return ToolResult.Success('Row added successfully');
+          return ToolResult.Success(`Result included below id=${row.id}:`, [
+            {
+              type: 'object',
+              object: row,
+            },
+          ]);
+
+          // const intent = createIntent(TableAction.AddRow, {
+          //   table,
+          //   data,
+          // });
+
+          // const { error } = await extensions.dispatch(intent);
+          // if (error) {
+          //   return ToolResult.Error(error?.message ?? 'Failed to add row to table');
+          // }
+
+          // return ToolResult.Success('Row added successfully');
         },
       }),
     ],

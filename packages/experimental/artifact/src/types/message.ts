@@ -58,6 +58,27 @@ export const JsonContentBlock = S.extend(
 ).pipe(S.mutable);
 export type JsonContentBlock = S.Schema.Type<typeof JsonContentBlock>;
 
+export const ObjectContentBlock = S.extend(
+  AbstractContentBlock,
+  S.Struct({
+    type: S.Literal('object'),
+
+    /**
+     * ECHO object encoded in the JSON format.
+     * Must have an id and '@type' property.
+     * Follows the echo encoding format.
+     * References are encoded with '/'.
+     * Typename is attached via symbol or `@meta` annotation, accessed via `getTypename`.
+     */
+    object: S.Struct(
+      {
+        id: S.String,
+      },
+      { key: S.String, value: S.Any },
+    ),
+  }),
+).pipe(S.mutable);
+
 export const ImageSource = S.Struct({
   type: S.Literal('base64'),
   mediaType: S.String,
@@ -121,6 +142,7 @@ export const ToolResultContentBlock = S.extend(
 export const MessageContentBlock = S.Union(
   TextContentBlock,
   JsonContentBlock,
+  ObjectContentBlock,
   ImageContentBlock,
 
   // TODO(burdon): Replace with JsonContentBlock with disposition (to make MessageContentBlock reusable).
