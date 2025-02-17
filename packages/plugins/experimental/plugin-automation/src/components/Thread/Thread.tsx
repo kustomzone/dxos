@@ -19,10 +19,11 @@ export type ThreadProps = {
   debug?: boolean;
   onSubmit?: (message: string) => void;
   onStop?: () => void;
+  onSuggest?: (text: string) => void;
 };
 
 // TODO(burdon): Factor out scroll logic.
-export const Thread = ({ messages, streaming, debug, onSubmit, onStop }: ThreadProps) => {
+export const Thread = ({ messages, streaming, debug, onSubmit, onStop, onSuggest }: ThreadProps) => {
   const { t } = useTranslation(AUTOMATION_PLUGIN);
   const scroller = useRef<ScrollController>(null);
 
@@ -53,7 +54,7 @@ export const Thread = ({ messages, streaming, debug, onSubmit, onStop }: ThreadP
     <div className='flex flex-col grow overflow-hidden'>
       <ScrollContainer ref={scroller} classNames='py-2 gap-2 overflow-x-hidden'>
         {messages?.map((message) => (
-          <ThreadMessage key={message.id} classNames='px-4' message={message} debug={debug} />
+          <ThreadMessage key={message.id} classNames='px-4' message={message} debug={debug} onSuggest={onSuggest} />
         ))}
       </ScrollContainer>
 

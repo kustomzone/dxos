@@ -5866,6 +5866,9 @@ importers:
       '@dxos/plugin-map':
         specifier: workspace:*
         version: link:../plugin-map
+      '@dxos/plugin-table':
+        specifier: workspace:*
+        version: link:../../plugin-table
       '@dxos/random':
         specifier: workspace:*
         version: link:../../../common/random
