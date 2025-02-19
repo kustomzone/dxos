@@ -203,10 +203,14 @@ export const toEffectSchema = (root: JsonSchemaType, _defs?: JsonSchemaType['$de
         result = refToEffectSchema(root);
       }
     }
+  } else if ('const' in root) {
+    result = S.Literal(root.const);
   } else if ('enum' in root) {
     result = S.Union(...root.enum!.map((e) => S.Literal(e)));
   } else if ('anyOf' in root) {
     result = S.Union(...root.anyOf!.map((v) => toEffectSchema(v, defs)));
+  } else if ('oneOf' in root) {
+    result = S.Union(...root.oneOf!.map((v) => toEffectSchema(v, defs)));
   } else if ('type' in root) {
     switch (root.type) {
       case 'string': {

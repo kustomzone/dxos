@@ -300,6 +300,30 @@ describe('json-to-effect', () => {
     expect(prepareAstForCompare(schema1.ast)).not.to.deep.eq(prepareAstForCompare(schema2.ast));
   });
 
+  test('object with oneOf const values and annotations', () => {
+    const jsonSchema: JsonSchemaType = {
+      type: 'object',
+      required: ['selectedOption'], // Add this if we want it required
+      properties: {
+        selectedOption: {
+          oneOf: [
+            { const: 'option-1-id', title: 'Small' },
+            { const: 'option-2-id', title: 'Medium' },
+            { const: 'option-3-id', title: 'Large' },
+          ],
+          type: 'string',
+        },
+      },
+    };
+
+    const schema = toEffectSchema(jsonSchema);
+    const origSchema = S.Struct({
+      selectedOption: S.Union(S.Literal('option-1-id'), S.Literal('option-2-id'), S.Literal('option-3-id')),
+    });
+
+    expect(prepareAstForCompare(schema.ast)).to.deep.eq(prepareAstForCompare(origSchema.ast));
+  });
+
   const prepareAstForCompare = (obj: AST.AST): any =>
     deepMapValues(obj, (value: any, recurse, key) => {
       if (typeof value === 'function') {
