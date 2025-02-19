@@ -136,7 +136,7 @@ export class DevtoolsServiceImpl implements DevtoolsHost {
   }
 
   subscribeToFeedBlocks(request: SubscribeToFeedBlocksRequest): Stream<SubscribeToFeedBlocksResponse> {
-    return subscribeToFeedBlocks({ feedStore: this.params.context.feedStore }, request);
+    return subscribeToFeedBlocks(this.params.context, request);
   }
 
   getSpaceSnapshot(request: GetSpaceSnapshotRequest): Promise<GetSpaceSnapshotResponse> {

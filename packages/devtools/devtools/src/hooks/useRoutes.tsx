@@ -29,6 +29,7 @@ import {
   EdgeDashboardPanel,
   SearchPanel,
   AutomergePanel,
+  FeedGraphPanel,
 } from '../panels';
 
 export const namespace = 'devtools';
@@ -103,6 +104,10 @@ export const useRoutes = () => {
             {
               path: '/echo/feeds',
               element: <FeedsPanel />,
+            },
+            {
+              path: '/echo/feeds/graph',
+              element: <FeedGraphPanel />,
             },
             {
               path: '/echo/objects',
