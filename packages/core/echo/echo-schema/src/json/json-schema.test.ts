@@ -22,6 +22,7 @@ import { FormatAnnotationId } from '../formats';
 import { Email } from '../formats/string';
 import { TypedObject } from '../object';
 import { Contact } from '../testing';
+import { log } from '@dxos/log';
 
 describe('effect-to-json', () => {
   test('type annotation', () => {
@@ -322,6 +323,29 @@ describe('json-to-effect', () => {
     });
 
     expect(prepareAstForCompare(schema.ast)).to.deep.eq(prepareAstForCompare(origSchema.ast));
+  });
+
+  test('single-select with oneOf round trip', () => {
+    const originalSchema: JsonSchemaType = {
+      $schema: 'http://json-schema.org/draft-07/schema#',
+      type: 'string',
+      oneOf: [
+        { const: 'b590d58c', title: 'Draft', echo: { annotations: { color: 'indigo' } } },
+        { const: '8185fe74', title: 'Active', echo: { annotations: { color: 'cyan' } } },
+        { const: 'e8455752', title: 'Completed', echo: { annotations: { color: 'emerald' } } },
+      ],
+      format: 'single-select',
+      title: 'State',
+    };
+
+    const effectSchema = toEffectSchema(originalSchema);
+    log.info('effectSchema', { effectSchema });
+
+    const roundTrippedSchema = toJsonSchema(effectSchema);
+
+    log.info('roundTrippedSchema', { roundTrippedSchema });
+
+    expect(roundTrippedSchema).to.deep.equal(originalSchema);
   });
 
   const prepareAstForCompare = (obj: AST.AST): any =>

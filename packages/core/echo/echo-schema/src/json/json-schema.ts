@@ -157,7 +157,14 @@ const withEchoRefinements = (ast: AST.AST): AST.AST => {
         propertyOrder: [...ast.propertySignatures.map((p) => p.name)] as string[],
       } satisfies JsonSchemaType,
     });
-  } else {
+  } else if (AST.isLiteral(ast)) {
+    recursiveResult = new AST.Literal(ast.literal, {
+      ...ast.annotations,
+      [AST.JSONSchemaAnnotationId]: {
+        const: ast.literal,
+      },
+    });
+  } else if(AST.isUnion(ast) && ast.types.every(type => AST.isLiteral(ast))) else {
     recursiveResult = mapAst(ast, withEchoRefinements);
   }
 
@@ -211,6 +218,9 @@ export const toEffectSchema = (root: JsonSchemaType, _defs?: JsonSchemaType['$de
     result = S.Union(...root.anyOf!.map((v) => toEffectSchema(v, defs)));
   } else if ('oneOf' in root) {
     result = S.Union(...root.oneOf!.map((v) => toEffectSchema(v, defs)));
+    if ('type' in root) {
+      result = result.annotations({ [LiteralTypeAnnotationId]: root.type });
+    }
   } else if ('type' in root) {
     switch (root.type) {
       case 'string': {
@@ -386,6 +396,10 @@ const annotationsToJsonSchemaFields = (annotations: AST.Annotations): Record<sym
     schemaFields[ECHO_REFINEMENT_KEY].schemaId = echoIdentifier;
   }
 
+  if (annotations[LiteralTypeAnnotationId]) {
+    schemaFields.type = annotations[LiteralTypeAnnotationId];
+  }
+
   // Custom (at end).
   for (const [key, annotationId] of Object.entries(CustomAnnotations)) {
     const value = annotations[annotationId];
@@ -449,3 +463,9 @@ const jsonSchemaFieldsToAnnotations = (schema: JsonSchemaType): AST.Annotations 
 const makeAnnotatedRefinement = (ast: AST.AST, annotations: AST.Annotations): AST.Refinement => {
   return new AST.Refinement(ast, () => Option.none(), annotations);
 };
+
+/**
+ * Attached to unions of literals to indicate the type of the literal.
+ * Must have a value of the `type` property in the JSON schema.
+ */
+export const LiteralTypeAnnotationId = Symbol('LiteralTypeAnnotationId');
