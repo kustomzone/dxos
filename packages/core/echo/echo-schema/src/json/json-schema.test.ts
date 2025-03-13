@@ -4,7 +4,8 @@
 
 import { describe, expect, test } from 'vitest';
 
-import { type AST, type JsonProp, S } from '@dxos/effect';
+import { type AST, findAnnotation, findProperty, type JsonPath, type JsonProp, S } from '@dxos/effect';
+import { invariant } from '@dxos/invariant';
 import { deepMapValues } from '@dxos/util';
 
 import { getEchoProp, toEffectSchema, toJsonSchema } from './json-schema';
@@ -19,6 +20,7 @@ import {
   createSchemaReference,
   getSchemaReference,
   Ref,
+  FieldLookupAnnotationId,
 } from '../ast';
 import { FormatAnnotationId, Email } from '../formats';
 import { TypedObject } from '../object';
@@ -60,6 +62,31 @@ describe('effect-to-json', () => {
     const jsonSchema = toJsonSchema(Schema);
     const nested = jsonSchema.properties!.name;
     expectReferenceAnnotation(nested);
+  });
+
+  test('reference annotation with lookup property', () => {
+    class Nested extends TypedObject({ typename: 'example.com/type/TestNested', version: '0.1.0' })({
+      name: S.String,
+    }) {}
+
+    class Schema extends TypedObject({ typename: 'example.com/type/Test', version: '0.1.0' })({
+      nested: Ref(Nested).annotations({
+        [FieldLookupAnnotationId]: 'name',
+      }),
+    }) {}
+
+    // Assert that the annotation is present in the original schema.
+    const prop = findProperty(Schema, 'nested' as JsonProp);
+    invariant(prop);
+    const referencePath = findAnnotation<JsonPath>(prop, FieldLookupAnnotationId);
+    expect(referencePath).to.equal('name');
+
+    // Convert to JSON schema.
+    const jsonSchema = toJsonSchema(Schema);
+    const nested = jsonSchema.properties!.nested;
+
+    // NOTE(ZaymonFC): Check the failing output, where has the reference path annotation gone?
+    throw new Error(JSON.stringify(nested, null, 2));
   });
 
   test('array of references', () => {
